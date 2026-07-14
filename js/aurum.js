@@ -143,14 +143,12 @@ document.addEventListener("DOMContentLoaded", function () {
   // --- ACCORDEON DO FAQ ---
   const faqRows = document.querySelectorAll(".aurum-faq-row");
   faqRows.forEach(row => {
-    const summary = row.querySelector(".aurum-faq-q");
+    const questionBox = row.querySelector(".aurum-faq-q");
     const answerGrid = row.querySelector(".aurum-faq-a-grid");
     const icon = row.querySelector(".faq-q-icon");
 
-    if (summary && answerGrid && icon) {
-      summary.addEventListener("click", function (e) {
-        e.preventDefault();
-        
+    if (questionBox && answerGrid && icon) {
+      questionBox.addEventListener("click", function () {
         const isOpen = answerGrid.classList.contains("is-open");
         
         if (isOpen) {
