@@ -985,7 +985,12 @@ a.aurum-btn-whatsapp:hover {
 }
 
 .aurum-faq-q::-webkit-details-marker { display: none; }
-.aurum-faq-a-grid { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+.aurum-faq-a-grid { 
+  display: grid; 
+  grid-template-rows: 0fr; 
+  transition: grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+  overflow: hidden; /* Evita vazamento de texto quando fechado */
+}
 .aurum-faq-a-grid.is-open { grid-template-rows: 1fr; }
 .aurum-faq-a-wrap { overflow: hidden; padding: 0 28px 24px; }
 .aurum-faq-a { font-size: 0.98rem; color: var(--bw-75); line-height: 1.65; margin: 0; }
