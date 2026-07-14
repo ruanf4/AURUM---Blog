@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Tags -->
+  <title>Pneumonia na Emergência Pediátrica — Aurum Educação</title>
+  <meta name="description" content="Domine o tratamento da pneumonia pediátrica no plantão. Série gratuita de 3 aulas com o Dr. Caíque Acácio e Pós-Graduação com selo MEC.">
+  <meta name="author" content="Aurum Educação">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/logo-aurum.png">
+  
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/root.css">
+  <link rel="stylesheet" href="css/aurum.css">
+</head>
+<body class="page-home">
+
+  <!-- ESFERAS DE LUZ FLUTUANTES -->
+  <div class="aurum-ambient-glow aurum-ambient-glow--1"></div>
+  <div class="aurum-ambient-glow aurum-ambient-glow--2"></div>
+
+  <!-- CABEÇALHO ESTILO LADEIRA (Fiel à referência) -->
+  <header class="aurum-header-ladeira">
+    <!-- Esquerda: Logo da Aurum -->
+    <a href="#" class="aurum-logo-wrap">
+      <img src="images/logo-aurum.png" alt="Aurum Educação" class="aurum-logo-dark">
+    </a>
+
+    <!-- Direita: Barra de Aviso estilo Ladeira -->
+    <div class="aurum-notice-pill">
+      <span class="aurum-notice-text">
+        As emergências estão lotadas de pneumonia, e a diferença entre a conduta certa e a errada é o que define o seu plantão. Participe da série gratuita de 21 a 23 de Dezembro.
+      </span>
+      <a href="#" class="aurum-notice-btn">
+        Participar
+      </a>
+    </div>
+  </header>
+
+  <!-- HERO SECTION INTEGRANDO O PAINEL DE AULAS (ESTILO PLAYLIST) -->
+  <main class="aurum-hero">
+
+    <!-- PAINEL DE AULAS INTEGRADO (Player + Playlist Sidebar) -->
+    <div class="aurum-classroom-container">
+      <!-- Coluna da Esquerda (Player & Metadados da Aula Selecionada) -->
+      <div class="aurum-classroom-main">
+        <div class="aurum-classroom-player" id="player-section">
+          <iframe id="main-classroom-video" width="100%" height="100%" src="https://www.youtube.com/embed/vAc6NKMxGR8?si=HSe1jlqEsXpr-U0Z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border: none; display: block; aspect-ratio: 16/9;"></iframe>
+        </div>
+        <div class="aurum-classroom-meta">
+          <div class="classroom-meta-top">
+            <span class="classroom-badge-active" id="active-badge">Aula 1</span>
+            <span class="classroom-date-active" id="active-date">21 de Dezembro</span>
+          </div>
+          <h2 class="classroom-title-active" id="active-title">A pneumonia que engana</h2>
+        </div>
+      </div>
+
+      <!-- Coluna da Direita (Playlist & Links de Download/WhatsApp) -->
+      <aside class="aurum-classroom-sidebar">
+        <!-- Lista de Reprodução -->
+        <div class="aurum-classroom-playlist">
+          <!-- Card Aula 1 (Ativa) -->
+          <div class="classroom-card active" data-class="1" data-video="https://www.youtube.com/embed/vAc6NKMxGR8?si=HSe1jlqEsXpr-U0Z">
+            <div class="classroom-thumb-wrap">
+              <img src="images/pneumonia_pediatrica_aula.png" alt="Miniatura Aula 1">
+              <div class="classroom-thumb-overlay">
+                <span class="material-symbols-outlined">play_circle</span>
+              </div>
+            </div>
+            <div class="classroom-info">
+              <span class="classroom-info-meta">Aula 1</span>
+              <h4 class="classroom-info-title">A pneumonia que engana</h4>
+              <span class="classroom-info-date">21 de Dezembro</span>
+            </div>
+          </div>
+
+          <!-- Card Aula 2 (Bloqueada) -->
+          <div class="classroom-card locked" data-class="2">
+            <div class="classroom-thumb-wrap">
+              <div class="classroom-thumb-overlay">
+                <span class="material-symbols-outlined">lock</span>
+              </div>
+            </div>
+            <div class="classroom-info">
+              <span class="classroom-info-meta" style="color: var(--bw-50);">Aula 2</span>
+              <h4 class="classroom-info-title">Conduta sem chute: o passo a passo do tratamento</h4>
+              <span class="classroom-info-date">22 de Dezembro</span>
+            </div>
+          </div>
+
+          <!-- Card Aula 3 (Bloqueada) -->
+          <div class="classroom-card locked" data-class="3">
+            <div class="classroom-thumb-wrap">
+              <div class="classroom-thumb-overlay">
+                <span class="material-symbols-outlined">lock</span>
+              </div>
+            </div>
+            <div class="classroom-info">
+              <span class="classroom-info-meta" style="color: var(--bw-50);">Aula 3</span>
+              <h4 class="classroom-info-title">Os casos que complicam (e como não ser pego de surpresa)</h4>
+              <span class="classroom-info-date">23 de Dezembro</span>
+            </div>
+          </div>
+
+          <!-- Card 4 (Pós-Graduação) -->
+          <div class="classroom-card" data-class="4">
+            <div class="classroom-thumb-wrap" style="background: var(--accent-color);">
+              <div class="classroom-thumb-overlay">
+                <span class="material-symbols-outlined" style="color: #ffffff;">star</span>
+              </div>
+            </div>
+            <div class="classroom-info">
+              <span class="classroom-info-meta" style="color: var(--accent-color);">OFERTA LIBERADA</span>
+              <h4 class="classroom-info-title">Pós-Graduação em Emergência</h4>
+              <span class="classroom-info-date">Acesso Imediato</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- SEÇÃO 2: TRÊS AULAS EDITORIAL (Fundo Claro) -->
+  <section class="aurum-three-classes-section reveal-on-scroll">
+    <div class="aurum-editorial-title-wrap">
+      <h2 class="aurum-editorial-title">Três aulas.<br>Uma conduta que não deixa margem pro chute.</h2>
+    </div>
+    
+    <div class="aurum-editorial-list">
+      <!-- Aula 1 -->
+      <div class="aurum-editorial-item reveal-on-scroll">
+        <div class="aurum-editorial-num">01</div>
+        <div class="aurum-editorial-content">
+          <h3 class="aurum-editorial-name">A pneumonia que engana</h3>
+          <p class="aurum-editorial-desc">
+            A criança chega com febre e tosse – e agora? Nesta aula, você vai aprender a diferenciar a pneumonia da virose que parece pneumonia (e da pneumonia que parece virose), quais sinais clínicos valem mais que o raio-X e o erro de avaliação que mais se repete nos plantões de inverno.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Aula 2 -->
+      <div class="aurum-editorial-item reveal-on-scroll">
+        <div class="aurum-editorial-num">02</div>
+        <div class="aurum-editorial-content">
+          <h3 class="aurum-editorial-name">Conduta sem chute: o passo a passo do tratamento</h3>
+          <p class="aurum-editorial-desc">
+            Antibiótico sim ou não? Qual, em que dose, por quanto tempo? Ambulatório ou internação? Nesta aula, o Dr. Caíque entrega o raciocínio completo da conduta – com os critérios objectives de gravidade que tiram o 'eu acho' da sua prescrição.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Aula 3 -->
+      <div class="aurum-editorial-item reveal-on-scroll">
+        <div class="aurum-editorial-num">03</div>
+        <div class="aurum-editorial-content">
+          <h3 class="aurum-editorial-name">Os casos que complicam (e como não ser pego de surpresa)</h3>
+          <p class="aurum-editorial-desc">
+            Derrame pleural, falha de tratamento, a criança que volta pior. Na aula final, você vai aprender a reconhecer a pneumonia complicada a tempo, quando escalar o cuidado e como conduzir o caso grave até a estabilização – com casos reais comentados.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 3: DOIS PASSOS DE SUPORTE (Faixa Horizontal Azul) -->
+  <section class="aurum-steps-section-blue reveal-on-scroll">
+    <div class="aurum-steps-inner-blue">
+      <div class="aurum-steps-grid-blue">
+        <!-- Card Passo 1 (WhatsApp) -->
+        <div class="aurum-step-box-blue">
+          <div>
+            <span class="aurum-step-badge-blue">Passo 1 · WhatsApp</span>
+            <h3 class="aurum-step-title-blue">Quem está no grupo não perde nada</h3>
+            <p class="aurum-step-desc-blue">
+              Fique por dentro das datas de liberação das próximas aulas, avisos de urgência e materiais de apoio. Quem está no grupo não perde nada.
+            </p>
+          </div>
+          <a href="#" class="aurum-btn-blue-whatsapp" style="margin-top: 24px;">
+            <span class="material-symbols-outlined" style="font-size: 28px;">chat</span>
+            <div class="btn-whatsapp-text">
+              <span>ENTRAR NO MEU GRUPO</span>
+              <span>para receber as aulas e materiais complementares</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- Card Passo 2 (Material) -->
+        <div class="aurum-step-box-blue">
+          <div>
+            <span class="aurum-step-badge-blue">Passo 2 · PDF</span>
+            <h3 class="aurum-step-title-blue">Lista de bolso de pneumonia pediátrica</h3>
+            <p class="aurum-step-desc-blue">
+              Baixe o material condensado com todas as doses, fluxos de decisão clínica e critérios de gravidade objetivos para você levar no celular para o plantão.
+            </p>
+          </div>
+          <a href="#" class="aurum-btn-blue-download" style="margin-top: 24px;">
+            <span class="material-symbols-outlined">download</span>
+            <span>Acesse aqui a lista de bolso</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- SEÇÃO 5: COMENTÁRIOS (Fundo Claro) -->
+  <section class="aurum-comments-section reveal-on-scroll">
+    <div class="aurum-comments-inner">
+      <h2 class="aurum-comments-title">Deixe seu comentário sobre a aula.</h2>
+      
+      <div class="aurum-comment-form">
+        <p style="font-size: 0.95rem; color: var(--bw-75); margin-bottom: 24px; line-height: 1.6;">
+          Conta pra gente: qual foi o maior insight? E qual a sua maior dificuldade com pneumonia no plantão? O Dr. Caíque e a equipe leem tudo, e as dúvidas mais comuns viram pauta da próxima aula.
+        </p>
+        
+        <form id="comment-form" class="form">
+          <div class="form-row">
+            <div class="input-group">
+              <label class="input-label-s" for="author-name">Seu Nome completo</label>
+              <input class="input" type="text" id="author-name" placeholder="Ex: Dra. Mariana Vasconcelos" required>
+            </div>
+          </div>
+          <div class="input-group" style="margin-top: 16px;">
+            <label class="input-label-s" for="comment-content">Seu Comentário ou Dúvida</label>
+            <textarea class="textarea" id="comment-content" style="min-height: 100px;" placeholder="Escreva aqui seu feedback da aula..." required></textarea>
+          </div>
+          <div class="form-actions" style="margin-top: 20px;">
+            <button class="aurum-btn aurum-btn-primary" type="submit" style="padding: 10px 24px;">
+              Enviar Comentário
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Lista de Comentários -->
+      <div style="margin-bottom: 16px; font-weight: 600; font-size: 1.125rem; color: var(--bw);">
+        Discussão (<span id="comment-count">0</span> comentários)
+      </div>
+      <div class="aurum-comment-list" id="comment-list">
+        <!-- Inseridos dinamicamente por JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 6: CTA FINAL & PÓS-GRADUAÇÃO (Fundo Escuro de Conversão) -->
+  <section class="aurum-pos-closing-dark reveal-on-scroll" id="posgraduacao">
+    <div class="aurum-pos-closing-inner">
+      <div class="aurum-pos-closing-grid">
+        <!-- Foto real do Dr. Caíque Acácio fornecida pelo usuário -->
+        <div class="aurum-doctor-card-dark reveal-on-scroll">
+          <img src="images/dr_caique.jpg" alt="Dr. Caíque Acácio">
+          <div class="aurum-doctor-card-dark-overlay">
+            <h3 class="aurum-doctor-card-dark-name">Dr. Caíque Acácio</h3>
+            <span class="aurum-doctor-card-dark-title">Pediatra Especialista & Coordenador</span>
+          </div>
+        </div>
+
+        <!-- Conteúdo da Pós e CTA -->
+        <div class="aurum-pos-closing-content reveal-on-scroll">
+          <span class="aurum-pos-closing-eyebrow">Formação Completa</span>
+          <h2 class="aurum-pos-closing-title">Isso foi só o começo.</h2>
+          <p class="aurum-pos-closing-desc">
+            Se 3 aulas de uma doença já mudaram o seu plantão, imagine 12 módulos, da criança grave à neonatologia, com 3 dias de prática presencial no maior centro de simulação médica do país e 7 especialistas no seu suporte de domingo a domingo.
+          </p>
+          <p style="font-size: 1.15rem; font-weight: 700; color: #ffffff; margin: 0; line-height: 1.4;">
+            Pós-Graduação em Emergência Pediátrica e Neonatal com o Dr. Caíque Acácio
+          </p>
+          
+          <!-- Acordeão de Módulos Escuro -->
+          <div class="aurum-modules-accordion-dark">
+            <!-- Módulo 1 -->
+            <div class="aurum-module-row-dark active">
+              <div class="aurum-module-head-dark">
+                <span>Módulos 01 a 04 · Pediatria Geral & Crises Agudas</span>
+                <span class="material-symbols-outlined">expand_more</span>
+              </div>
+              <div class="aurum-module-body-dark">
+                Aprofundamento clínico em crises asmáticas graves, bronquiolite viral aguda, laringite, as principais infecções bacterianas agudas (PAC, meningite) e fluxos rápidos de prescrição e triagem em pronto-socorro infantil.
+              </div>
+            </div>
+            <!-- Módulo 2 -->
+            <div class="aurum-module-row-dark">
+              <div class="aurum-module-head-dark">
+                <span>Módulos 05 a 08 · Emergências Graves & Reanimação</span>
+                <span class="material-symbols-outlined">expand_more</span>
+              </div>
+              <div class="aurum-module-body-dark">
+                Prática exaustiva de reanimação cardiopulmonar (RCP) infantil, sequência rápida de intubação, manejo de via aérea difícil, controle de choque séptico, anafilaxia e estabilização rápida do trauma pediátrico grave.
+              </div>
+            </div>
+            <!-- Módulo 3 -->
+            <div class="aurum-module-row-dark">
+              <div class="aurum-module-head-dark">
+                <span>Módulos 09 a 12 · Neonatologia Prática & Transporte</span>
+                <span class="material-symbols-outlined">expand_more</span>
+              </div>
+              <div class="aurum-module-body-dark">
+                Abordagem inicial do recém-nascido na sala de parto, RCP neonatal, manejo de incubadoras de transporte, ventilação mecânica invasiva e não-invasiva no neonato e protocolos de segurança no transporte inter-hospitalar.
+              </div>
+            </div>
+          </div>
+
+          <!-- Preço e CTA final -->
+          <div class="aurum-price-closing-box">
+            <div class="aurum-price-row">
+              <div>
+                <span class="aurum-price-label">Condição Especial de Lançamento</span>
+                <div class="aurum-price-value-light">
+                  12x R$ 197 <span>ou R$ 1.997 à vista</span>
+                </div>
+              </div>
+              <span class="aurum-price-savings-light">Economize R$ 2.993</span>
+            </div>
+            
+            <a href="#" class="aurum-btn aurum-btn-primary" style="width: 100%; font-size: 1.05rem; padding: 14px;">
+              Quero saber da condição especial
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO FAQ (Tema Claro) -->
+  <section class="aurum-faq-section reveal-on-scroll">
+    <div class="aurum-section-title-wrap" style="text-align: center; margin-bottom: 54px;">
+      <span class="aurum-sec-eyebrow">Dúvidas</span>
+      <h2 class="aurum-sec-title">Perguntas Frequentes</h2>
+    </div>
+    
+    <div class="aurum-faq-grid">
+      <details class="aurum-faq-row">
+        <summary class="aurum-faq-q">
+          <span>A série de aulas é realmente gratuita?</span>
+          <span class="material-symbols-outlined faq-q-icon">add</span>
+        </summary>
+        <div class="aurum-faq-a-grid">
+          <div class="aurum-faq-a-wrap">
+            <p class="aurum-faq-a">Sim. A série de 3 aulas com o Dr. Caíque Acácio é 100% gratuita e voltada para capacitação clínica rápida de médicos e acadêmicos de medicina.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="aurum-faq-row">
+        <summary class="aurum-faq-q">
+          <span>A pós-graduação é reconhecida pelo MEC?</span>
+          <span class="material-symbols-outlined faq-q-icon">add</span>
+        </summary>
+        <div class="aurum-faq-a-grid">
+          <div class="aurum-faq-a-wrap">
+            <p class="aurum-faq-a">Sim. A Pós-Graduação é certificada e registrada pelo MEC através da UNIFATEC, sendo inteiramente válida como especialização lato sensu em todo o país.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="aurum-faq-row">
+        <summary class="aurum-faq-q">
+          <span>Como funciona a prática presencial de simulação?</span>
+          <span class="material-symbols-outlined faq-q-icon">add</span>
+        </summary>
+        <div class="aurum-faq-a-grid">
+          <div class="aurum-faq-a-wrap">
+            <p class="aurum-faq-a">As práticas presenciais ocorrem durante 3 dias de imersão no maior centro de simulação avançada de urgências médicas da América Latina, utilizando manequins robóticos de alta fidelidade que respondem dinamicamente à medicação e intubação.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="aurum-faq-row">
+        <summary class="aurum-faq-q">
+          <span>Sou recém-formado, consigo acompanhar?</span>
+          <span class="material-symbols-outlined faq-q-icon">add</span>
+        </summary>
+        <div class="aurum-faq-a-grid">
+          <div class="aurum-faq-a-wrap">
+            <p class="aurum-faq-a">Com certeza. O método pedagógico foi feito especialmente para médicos recém-formados ou sem especialidade que precisam de segurança e de critérios objetivos rápidos para tomar condutas em plantões gerais de emergência.</p>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- RODAPÉ INSTITUCIONAL -->
+  <footer class="aurum-footer">
+    <div class="aurum-footer-inner">
+      <div class="aurum-footer-links">
+        <span>Série gratuita</span>
+        <span class="aurum-footer-sep">·</span>
+        <span>Aulas com prazo de disponibilidade</span>
+        <span class="aurum-footer-sep">·</span>
+        <span>Conteúdo educativo destinado a médicos e estudantes de medicina</span>
+      </div>
+      
+      <div class="aurum-footer-info">
+        <strong>Aurum Educação</strong>
+        <br>
+        Suporte: <a href="mailto:suporte@aurumeducacao.com.br">suporte@aurumeducacao.com.br</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL DE VÍDEO PREMIUM (LIGHTBOX) TEMA CLARO -->
+  <div class="aurum-modal" id="video-modal">
+    <div class="aurum-modal-overlay" id="modal-overlay"></div>
+    <div class="aurum-modal-content">
+      <button class="aurum-modal-close" id="modal-close" aria-label="Fechar">&times;</button>
+      
+      <div class="aurum-modal-body">
+        <div class="aurum-player-container" style="max-width: 100%; transform: none; opacity: 1;">
+          <div class="aurum-video-placeholder" id="video-placeholder-modal">
+            <div class="aurum-player-overlay"></div>
+            <div class="aurum-play-btn-wrap">
+              <div class="aurum-play-btn">
+                <svg viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+            </div>
+            <img id="player-thumb" src="images/pneumonia_pediatrica_aula.png" alt="Aula de Pneumonia Pediátrica">
+            <span class="aurum-video-label" id="active-video-label">Assistindo: Aula 1 - A pneumonia que engana</span>
+          </div>
+        </div>
+        
+        <div class="aurum-featured-card" style="margin-top: 24px;">
+          <div class="aurum-featured-header">
+            <span class="aurum-featured-badge">AULA 1 · Disponível</span>
+            <span class="aurum-featured-date">21/12 às 21:12</span>
+          </div>
+          <h2 class="aurum-featured-title">A pneumonia que engana</h2>
+          <p class="aurum-featured-desc">
+            A criança chega com febre e tosse, e agora? Nesta aula, você vai aprender a diferenciar a pneumonia da virose que parece pneumonia (e da pneumonia que parece virose), quais sinais clínicos valem mais que o raio-X e o erro de avaliação que mais se repete nos plantões de inverno.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/aurum.js"></script>
+</body>
+</html>
