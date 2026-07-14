@@ -156,11 +156,11 @@ document.addEventListener("DOMContentLoaded", function () {
         if (isOpen) {
           answerGrid.classList.remove("is-open");
           icon.textContent = "add";
-          row.style.backgroundColor = "";
+          row.classList.remove("active");
         } else {
           answerGrid.classList.add("is-open");
           icon.textContent = "remove";
-          row.style.backgroundColor = "rgba(255, 255, 255, 0.9)";
+          row.classList.add("active");
         }
       });
     }
@@ -177,24 +177,24 @@ document.addEventListener("DOMContentLoaded", function () {
     {
       author: "Dra. Mariana Silva (Pediatra)",
       date: "Há 2 horas",
-      content: "Excelente aula! Essa diferenciação entre pneumonia e virose na emergência pediátrica sempre gera dúvidas nos plantões de inverno. O prontuário clínico que você colocou na comparação ilustra exatamente o que a gente vê na rotina."
+      content: "Essa diferenciação prática que o Dr. Caíque fez entre pneumonia bacteriana (PAC) e virose na Aula 1 abre os olhos! Já fiz a minha matrícula na Pós-Graduação em Emergência Pediátrica e Neonatal e estou ansiosa para a simulação prática presencial. O suporte deles para tirar dúvidas dos casos de plantão no grupo é exatamente o que um médico recém-formado precisa."
     },
     {
       author: "Dr. Felipe Costa (Residente de Pediatria)",
       date: "Há 4 horas",
-      content: "A didática do Dr. Caíque é insuperável. Muito esclarecedor esse checklist de sinais clínicos práticos. De fato, no plantão rápido a gente precisa de critérios objetivos de gravidade."
+      content: "O checklist de sinais de gravidade da PAC que o Dr. Caíque ensinou já salvou meu plantão de ontem. O módulo de pneumonia complicada com derrame pleural (PACC) também está impecável. Essa Pós com reconhecimento UNIFATEC/MEC vale cada centavo."
     },
     {
       author: "Dra. Beatriz Ramos (Médica Generalista)",
       date: "Há 6 horas",
-      content: "Muitos plantonistas pecam ao pedir raio-x 'por garantia'. Ver esses conceitos explicados de forma tão direta e baseada em casos traz muita segurança para a nossa conduta imediata."
+      content: "Sempre tive muito receio com intubação pediátrica e choque séptico. Ver a clareza da ementa e a simulação prática em manequins robóticos avançados de alta fidelidade me deu a segurança definitiva para entrar na Pós da Aurum. Dr. Caíque é sensacional!"
     }
   ];
 
-  let comments = JSON.parse(localStorage.getItem("aurum_comments_original"));
+  let comments = JSON.parse(localStorage.getItem("aurum_comments_original_v2"));
   if (!comments || comments.length === 0) {
     comments = defaultComments;
-    localStorage.setItem("aurum_comments_original", JSON.stringify(comments));
+    localStorage.setItem("aurum_comments_original_v2", JSON.stringify(comments));
   }
 
   function getInitials(name) {
@@ -263,7 +263,7 @@ document.addEventListener("DOMContentLoaded", function () {
       };
 
       comments.unshift(newComment);
-      localStorage.setItem("aurum_comments_original", JSON.stringify(comments));
+      localStorage.setItem("aurum_comments_original_v2", JSON.stringify(comments));
 
       authorInput.value = "";
       contentInput.value = "";

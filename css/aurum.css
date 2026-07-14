@@ -948,38 +948,48 @@ a.aurum-btn-whatsapp:hover {
 }
 
 .aurum-faq-grid {
-  border-radius: 16px;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 10px 35px rgba(9, 30, 79, 0.04);
-  border: 1px solid rgba(13, 59, 159, 0.08);
+  box-shadow: 0 12px 35px rgba(30, 37, 43, 0.03);
+  border: 1.5px solid rgba(30, 37, 43, 0.15); /* Borda mais definida */
 }
 
 .aurum-faq-row {
   background: #ffffff;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-.aurum-faq-row:hover { background: #f8fafc; }
-.aurum-faq-row + .aurum-faq-row { border-top: 1px solid rgba(13, 59, 159, 0.06); }
+.aurum-faq-row:hover { 
+  background: #faf9f6; 
+}
+
+.aurum-faq-row.active {
+  background: #fdfcf9; /* Fundo creme bem leve de destaque */
+  box-shadow: inset 4px 0 0 var(--accent-color); /* Traço laranja terracota lateral na linha ativa */
+}
+
+.aurum-faq-row + .aurum-faq-row { 
+  border-top: 1.5px solid rgba(30, 37, 43, 0.1); 
+}
 
 .aurum-faq-q {
   list-style: none;
   cursor: pointer;
-  padding: 24px;
+  padding: 24px 28px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-weight: 700;
-  color: var(--bw);
-  font-size: 1rem;
+  font-weight: 800; /* Mais forte */
+  color: var(--bw); /* Grafite de contraste total */
+  font-size: 1.05rem;
 }
 
 .aurum-faq-q::-webkit-details-marker { display: none; }
 .aurum-faq-a-grid { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
 .aurum-faq-a-grid.is-open { grid-template-rows: 1fr; }
-.aurum-faq-a-wrap { overflow: hidden; padding: 0 24px 24px; }
-.aurum-faq-a { font-size: 0.95rem; color: var(--bw-75); line-height: 1.6; margin: 0; }
-.faq-q-icon { color: var(--accent-color); }
+.aurum-faq-a-wrap { overflow: hidden; padding: 0 28px 24px; }
+.aurum-faq-a { font-size: 0.98rem; color: var(--bw-75); line-height: 1.65; margin: 0; }
+.faq-q-icon { color: var(--accent-color); font-weight: bold; }
 
 /* RODAPÉ */
 .aurum-footer {
@@ -1182,23 +1192,41 @@ a.aurum-btn-accent:hover {
 /* Customização dos campos do formulário para tema claro */
 .input, .textarea {
   background: #ffffff;
-  border: 1px solid #cbd0d5;
-  border-radius: 8px;
-  color: #1e293b;
-  padding: 12px 16px;
+  border: 1.5px solid rgba(30, 37, 43, 0.3); /* Borda mais nítida */
+  border-radius: 12px;
+  color: var(--bw); /* Grafite de alto contraste */
+  padding: 14px 18px;
   width: 100%;
   box-sizing: border-box;
+  font-family: var(--font-family);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.input:hover, .textarea:hover {
+  border-color: rgba(30, 37, 43, 0.5);
 }
 
 .input:focus, .textarea:focus {
   border-color: var(--accent-color);
-  box-shadow: 0 0 10px rgba(227, 82, 53, 0.1);
+  box-shadow: 0 0 0 4px rgba(227, 82, 53, 0.08);
   outline: none;
 }
 
+.input::placeholder, .textarea::placeholder {
+  color: var(--bw-50) !important; /* Placeholder muito mais legível e com alto contraste */
+  opacity: 0.9 !important;
+}
+
 .input-label-s {
-  color: #475569;
-  font-weight: 600;
+  color: var(--bw);
+  font-weight: 800;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+  display: block;
 }
 
 /* Estilo para revelações no scroll */
