@@ -22,26 +22,33 @@
   <div class="aurum-ambient-glow aurum-ambient-glow--1"></div>
   <div class="aurum-ambient-glow aurum-ambient-glow--2"></div>
 
-  <!-- CABEÇALHO ESTILO LADEIRA (Fiel à referência) -->
-  <header class="aurum-header-ladeira">
-    <!-- Esquerda: Logo da Aurum -->
-    <a href="#" class="aurum-logo-wrap">
-      <img src="images/logo-aurum.png" alt="Aurum Educação" class="aurum-logo-dark">
-    </a>
-
-    <!-- Direita: Barra de Aviso estilo Ladeira -->
-    <div class="aurum-notice-pill">
-      <span class="aurum-notice-text">
-        As emergências estão lotadas de pneumonia, e a diferença entre a conduta certa e a errada é o que define o seu plantão. Participe da série gratuita de 21 a 23 de Dezembro.
-      </span>
-      <a href="#" class="aurum-notice-btn">
-        Participar
-      </a>
+  <!-- FAIXA DE TOPO -->
+  <div class="aurum-topbar" id="topbar">
+    <div class="aurum-topbar-inner">
+      <span class="aurum-topbar-badge">Urgência no Plantão</span>
+      As emergências estão lotadas de pneumonia, e a diferença entre a conduta certa e a errada é o que define o seu plantão. Participe de <strong>21/12 a 23/12</strong> da série gratuita com o Dr. Caíque Acácio.
     </div>
-  </header>
+  </div>
+
+  <!-- HEADER CÁPSULA (Pill-bar flutuante escuro) -->
+  <div class="aurum-header-container">
+    <header class="aurum-header-pill">
+      <img src="images/logo-aurum.png" alt="Aurum Educação" class="aurum-logo">
+      <a href="#" class="aurum-btn aurum-btn-accent" style="padding: 6px 18px; font-size: 0.8rem;">
+        Inscrever-se
+      </a>
+    </header>
+  </div>
 
   <!-- HERO SECTION INTEGRANDO O PAINEL DE AULAS (ESTILO PLAYLIST) -->
   <main class="aurum-hero">
+    <div class="aurum-hero-content">
+      <span class="aurum-hero-eyebrow">Série gratuita de 3 aulas</span>
+      <h1 class="aurum-hero-h1">Pneumonia na emergência pediátrica.</h1>
+      <p class="aurum-hero-p">
+        Domine o tratamento da pneumonia que está lotando o seu plantão pediátrico. Aprenda a reconhecer, classificar e conduzir a criança com total segurança, sem pedir exames desnecessários por garantia.
+      </p>
+    </div>
 
     <!-- PAINEL DE AULAS INTEGRADO (Player + Playlist Sidebar) -->
     <div class="aurum-classroom-container">
@@ -55,7 +62,7 @@
             <span class="classroom-badge-active" id="active-badge">Aula 1</span>
             <span class="classroom-date-active" id="active-date">21 de Dezembro</span>
           </div>
-          <h2 class="classroom-title-active" id="active-title">A pneumonia que engana</h2>
+          <h2 class="classroom-title-active" id="active-title">Pneumonia não complicada: Pneumonia adquirida na comunidade (PAC)</h2>
         </div>
       </div>
 
@@ -73,7 +80,7 @@
             </div>
             <div class="classroom-info">
               <span class="classroom-info-meta">Aula 1</span>
-              <h4 class="classroom-info-title">A pneumonia que engana</h4>
+              <h4 class="classroom-info-title">Pneumonia não complicada: Pneumonia adquirida na comunidade (PAC)</h4>
               <span class="classroom-info-date">21 de Dezembro</span>
             </div>
           </div>
@@ -87,7 +94,7 @@
             </div>
             <div class="classroom-info">
               <span class="classroom-info-meta" style="color: var(--bw-50);">Aula 2</span>
-              <h4 class="classroom-info-title">Conduta sem chute: o passo a passo do tratamento</h4>
+              <h4 class="classroom-info-title">Pneumonia Complicada (PACC)</h4>
               <span class="classroom-info-date">22 de Dezembro</span>
             </div>
           </div>
@@ -101,7 +108,7 @@
             </div>
             <div class="classroom-info">
               <span class="classroom-info-meta" style="color: var(--bw-50);">Aula 3</span>
-              <h4 class="classroom-info-title">Os casos que complicam (e como não ser pego de surpresa)</h4>
+              <h4 class="classroom-info-title">Pneumonia Atípica</h4>
               <span class="classroom-info-date">23 de Dezembro</span>
             </div>
           </div>
@@ -135,7 +142,7 @@
       <div class="aurum-editorial-item reveal-on-scroll">
         <div class="aurum-editorial-num">01</div>
         <div class="aurum-editorial-content">
-          <h3 class="aurum-editorial-name">A pneumonia que engana</h3>
+          <h3 class="aurum-editorial-name">Pneumonia não complicada: Pneumonia adquirida na comunidade (PAC)</h3>
           <p class="aurum-editorial-desc">
             A criança chega com febre e tosse – e agora? Nesta aula, você vai aprender a diferenciar a pneumonia da virose que parece pneumonia (e da pneumonia que parece virose), quais sinais clínicos valem mais que o raio-X e o erro de avaliação que mais se repete nos plantões de inverno.
           </p>
@@ -146,7 +153,7 @@
       <div class="aurum-editorial-item reveal-on-scroll">
         <div class="aurum-editorial-num">02</div>
         <div class="aurum-editorial-content">
-          <h3 class="aurum-editorial-name">Conduta sem chute: o passo a passo do tratamento</h3>
+          <h3 class="aurum-editorial-name">Pneumonia Complicada (PACC)</h3>
           <p class="aurum-editorial-desc">
             Antibiótico sim ou não? Qual, em que dose, por quanto tempo? Ambulatório ou internação? Nesta aula, o Dr. Caíque entrega o raciocínio completo da conduta – com os critérios objectives de gravidade que tiram o 'eu acho' da sua prescrição.
           </p>
@@ -157,7 +164,7 @@
       <div class="aurum-editorial-item reveal-on-scroll">
         <div class="aurum-editorial-num">03</div>
         <div class="aurum-editorial-content">
-          <h3 class="aurum-editorial-name">Os casos que complicam (e como não ser pego de surpresa)</h3>
+          <h3 class="aurum-editorial-name">Pneumonia Atípica</h3>
           <p class="aurum-editorial-desc">
             Derrame pleural, falha de tratamento, a criança que volta pior. Na aula final, você vai aprender a reconhecer a pneumonia complicada a tempo, quando escalar o cuidado e como conduzir o caso grave até a estabilização – com casos reais comentados.
           </p>
@@ -166,47 +173,45 @@
     </div>
   </section>
 
-  <!-- SEÇÃO 3: DOIS PASSOS DE SUPORTE (Faixa Horizontal Azul) -->
-  <section class="aurum-steps-section-blue reveal-on-scroll">
-    <div class="aurum-steps-inner-blue">
-      <div class="aurum-steps-grid-blue">
-        <!-- Card Passo 1 (WhatsApp) -->
-        <div class="aurum-step-box-blue">
-          <div>
-            <span class="aurum-step-badge-blue">Passo 1 · WhatsApp</span>
-            <h3 class="aurum-step-title-blue">Quem está no grupo não perde nada</h3>
-            <p class="aurum-step-desc-blue">
-              Fique por dentro das datas de liberação das próximas aulas, avisos de urgência e materiais de apoio. Quem está no grupo não perde nada.
-            </p>
-          </div>
-          <a href="#" class="aurum-btn-blue-whatsapp" style="margin-top: 24px;">
-            <span class="material-symbols-outlined" style="font-size: 28px;">chat</span>
-            <div class="btn-whatsapp-text">
-              <span>ENTRAR NO MEU GRUPO</span>
-              <span>para receber as aulas e materiais complementares</span>
-            </div>
-          </a>
-        </div>
-
-        <!-- Card Passo 2 (Material) -->
-        <div class="aurum-step-box-blue">
-          <div>
-            <span class="aurum-step-badge-blue">Passo 2 · PDF</span>
-            <h3 class="aurum-step-title-blue">Lista de bolso de pneumonia pediátrica</h3>
-            <p class="aurum-step-desc-blue">
+  <!-- SEÇÃO 3: DOIS PASSOS (Fundo Azul Marinho com Textura) -->
+  <section class="aurum-steps-section-dark reveal-on-scroll">
+    <div class="aurum-steps-inner-dark">
+      <div class="aurum-section-title-wrap" style="text-align: center; margin-bottom: 54px;">
+        <span class="aurum-sec-eyebrow" style="color: var(--accent-color);">Próximos Passos</span>
+        <h2 class="aurum-sec-title-light">Então siga estes dois passos.</h2>
+      </div>
+      
+      <div class="aurum-steps-grid-dark">
+        <!-- Passo 1: E-book -->
+        <div class="aurum-step-box-dark reveal-on-scroll">
+          <div class="aurum-step-header">
+            <span class="aurum-step-badge-light">Passo 1</span>
+            <h3 class="aurum-step-title-light">Lista de bolso de pneumonia pediátrica</h3>
+            <p class="aurum-step-desc-light">
               Baixe o material condensado com todas as doses, fluxos de decisão clínica e critérios de gravidade objetivos para você levar no celular para o plantão.
             </p>
           </div>
-          <a href="#" class="aurum-btn-blue-download" style="margin-top: 24px;">
-            <span class="material-symbols-outlined">download</span>
-            <span>Acesse aqui a lista de bolso</span>
+          <a href="#" class="aurum-btn aurum-btn-secondary" style="align-self: flex-start; margin-top: 16px;">
+            BAIXAR MATERIAL
+          </a>
+        </div>
+
+        <!-- Passo 2: WhatsApp -->
+        <div class="aurum-step-box-dark reveal-on-scroll">
+          <div class="aurum-step-header">
+            <span class="aurum-step-badge-light">Passo 2</span>
+            <h3 class="aurum-step-title-light">Quem está no grupo não perde nada.</h3>
+            <p class="aurum-step-desc-light">
+              Fique por dentro das datas de liberação das próximas aulas, avisos de urgência e materiais de apoio. Quem está no grupo não perde nada.
+            </p>
+          </div>
+          <a href="#" class="aurum-btn aurum-btn-primary" style="align-self: flex-start; margin-top: 16px;">
+            ENTRAR NO GRUPO
           </a>
         </div>
       </div>
     </div>
   </section>
-
-
 
   <!-- SEÇÃO 5: COMENTÁRIOS (Fundo Claro) -->
   <section class="aurum-comments-section reveal-on-scroll">
@@ -341,7 +346,7 @@
         </summary>
         <div class="aurum-faq-a-grid">
           <div class="aurum-faq-a-wrap">
-            <p class="aurum-faq-a">Sim. A série de 3 aulas ministrada pelo Dr. Caíque Acácio é 100% gratuita. Ela foi desenvolvida para oferecer uma capacitação clínica rápida, focada nas condutas imediatas de emergência pediátrica que você enfrenta nos plantões.</p>
+            <p class="aurum-faq-a">Sim. A série de 3 aulas com o Dr. Caíque Acácio é 100% gratuita e voltada para capacitação clínica rápida de médicos e acadêmicos de medicina.</p>
           </div>
         </div>
       </details>
@@ -353,7 +358,7 @@
         </summary>
         <div class="aurum-faq-a-grid">
           <div class="aurum-faq-a-wrap">
-            <p class="aurum-faq-a">Sim. A Pós-Graduação Médica em Intervenção Emergencial Pediátrica e Neonatal é credenciada pelo MEC com carga horária de 360 horas. A certificação é emitida por faculdade parceira devidamente autorizada pelo MEC, sendo inteiramente válida como especialização lato sensu em todo o território nacional.</p>
+            <p class="aurum-faq-a">Sim. A Pós-Graduação é certificada e registrada pelo MEC através da UNIFATEC, sendo inteiramente válida como especialização lato sensu em todo o país.</p>
           </div>
         </div>
       </details>
@@ -365,7 +370,7 @@
         </summary>
         <div class="aurum-faq-a-grid">
           <div class="aurum-faq-a-wrap">
-            <p class="aurum-faq-a">As práticas presenciais consistem em 20 horas de encontros práticos intensivos realizados em um centro de treinamento médico avançado em Brasília. Lá, os alunos passam por estações de simulação realística e práticas supervisionadas diretamente pelos professores e pelo próprio Dr. Caíque, aplicando os protocolos e condutas na prática.</p>
+            <p class="aurum-faq-a">As práticas presenciais ocorrem durante 3 dias de imersão no maior centro de simulação avançada de urgências médicas da América Latina, utilizando manequins robóticos de alta fidelidade que respondem dinamicamente à medicação e intubação.</p>
           </div>
         </div>
       </details>
@@ -377,7 +382,7 @@
         </summary>
         <div class="aurum-faq-a-grid">
           <div class="aurum-faq-a-wrap">
-            <p class="aurum-faq-a">Com certeza. O programa foi estruturado especificamente para dar segurança imediata e raciocínio clínico rápido a médicos recém-formados ou generalistas que enfrentam plantões de porta e emergências pediátricas/neonatais cotidianas, ensinando desde a base até as condutas mais complexas de forma prática.</p>
+            <p class="aurum-faq-a">Com certeza. O método pedagógico foi feito especialmente para médicos recém-formados ou sem especialidade que precisam de segurança e de critérios objetivos rápidos para tomar condutas em plantões gerais de emergência.</p>
           </div>
         </div>
       </details>
@@ -421,7 +426,7 @@
               </div>
             </div>
             <img id="player-thumb" src="images/pneumonia_pediatrica_aula.png" alt="Aula de Pneumonia Pediátrica">
-            <span class="aurum-video-label" id="active-video-label">Assistindo: Aula 1 - A pneumonia que engana</span>
+            <span class="aurum-video-label" id="active-video-label">Assistindo: Aula 01: Pneumonia não complicada: Pneumonia adquirida na comunidade (PAC)</span>
           </div>
         </div>
         
@@ -430,7 +435,7 @@
             <span class="aurum-featured-badge">AULA 1 · Disponível</span>
             <span class="aurum-featured-date">21/12 às 21:12</span>
           </div>
-          <h2 class="aurum-featured-title">A pneumonia que engana</h2>
+          <h2 class="aurum-featured-title">Pneumonia não complicada: Pneumonia adquirida na comunidade (PAC)</h2>
           <p class="aurum-featured-desc">
             A criança chega com febre e tosse, e agora? Nesta aula, você vai aprender a diferenciar a pneumonia da virose que parece pneumonia (e da pneumonia que parece virose), quais sinais clínicos valem mais que o raio-X e o erro de avaliação que mais se repete nos plantões de inverno.
           </p>

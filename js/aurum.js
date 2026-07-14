@@ -5,22 +5,22 @@ document.addEventListener("DOMContentLoaded", function () {
   // --- DADOS DAS AULAS (PLAYLIST) ---
   const classData = {
     1: {
-      number: "Aula 1",
+      number: "Aula 01",
       date: "21 de Dezembro",
-      title: "A pneumonia que engana",
+      title: "Pneumonia não complicada: Pneumonia adquirida na comunidade (PAC)",
       videoUrl: "https://www.youtube.com/embed/vAc6NKMxGR8?si=HSe1jlqEsXpr-U0Z",
       available: true
     },
     2: {
-      number: "Aula 2",
+      number: "Aula 02",
       date: "22 de Dezembro às 21:12",
-      title: "Conduta sem chute: o passo a passo do tratamento",
+      title: "Pneumonia Complicada (PACC)",
       available: false
     },
     3: {
-      number: "Aula 3",
+      number: "Aula 03",
       date: "23 de Dezembro às 21:12",
-      title: "Os casos que complicam (e como não ser pego de surpresa)",
+      title: "Pneumonia Atípica",
       available: false
     }
   };
