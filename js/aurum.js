@@ -197,19 +197,32 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.setItem("aurum_comments_original", JSON.stringify(comments));
   }
 
+  function getInitials(name) {
+    let cleanName = name.replace(/^(dra?\.?\s*)/i, "").trim();
+    const parts = cleanName.split(" ");
+    if (parts.length >= 2) {
+      return (parts[0][0] + parts[1][0]).toUpperCase();
+    }
+    return parts[0] ? parts[0].slice(0, 2).toUpperCase() : "DR";
+  }
+
   function renderComments() {
     if (!commentList) return;
     commentList.innerHTML = "";
     comments.forEach(comment => {
+      const initials = getInitials(comment.author);
       const item = document.createElement("div");
       item.className = "aurum-comment-item";
       item.innerHTML = `
-        <div class="aurum-comment-meta">
-          <span class="aurum-comment-author">${escapeHTML(comment.author)}</span>
-          <span class="aurum-comment-date">${escapeHTML(comment.date)}</span>
-        </div>
-        <div class="aurum-comment-content">
-          ${escapeHTML(comment.content)}
+        <div class="aurum-comment-avatar">${escapeHTML(initials)}</div>
+        <div class="aurum-comment-bubble">
+          <div class="aurum-comment-meta">
+            <span class="aurum-comment-author">${escapeHTML(comment.author)}</span>
+            <span class="aurum-comment-date">${escapeHTML(comment.date)}</span>
+          </div>
+          <div class="aurum-comment-content">
+            ${escapeHTML(comment.content)}
+          </div>
         </div>
       `;
       commentList.appendChild(item);
