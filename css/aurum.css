@@ -988,11 +988,19 @@ a.aurum-btn-whatsapp:hover {
 .aurum-faq-a-grid { 
   display: grid; 
   grid-template-rows: 0fr; 
-  transition: grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
-  overflow: hidden; /* Evita vazamento de texto quando fechado */
+  transition: grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s ease; 
+  overflow: hidden; 
+  visibility: hidden; /* Oculta totalmente quando fechado */
 }
-.aurum-faq-a-grid.is-open { grid-template-rows: 1fr; }
-.aurum-faq-a-wrap { overflow: hidden; padding: 0 28px 24px; }
+.aurum-faq-a-grid.is-open { 
+  grid-template-rows: 1fr; 
+  visibility: visible; /* Torna visível ao abrir */
+}
+.aurum-faq-a-wrap { 
+  min-height: 0; /* Crucial para o CSS Grid conseguir colapsar a trilha a 0px */
+  overflow: hidden; 
+  padding: 0 28px 24px; 
+}
 .aurum-faq-a { font-size: 0.98rem; color: var(--bw-75); line-height: 1.65; margin: 0; }
 .faq-q-icon { color: var(--accent-color); font-weight: bold; }
 
