@@ -2,28 +2,41 @@
 
 document.addEventListener("DOMContentLoaded", function () {
   
-  // --- DADOS DAS AULAS (PLAYLIST) ---
-  const classData = {
-    1: {
+  // --- DADOS DAS AULAS (PLAYLIST / JSON COMPILADO) ---
+  const classData = [
+    {
+      id: 1,
       number: "Aula 01",
-      date: "21 de Dezembro",
-      title: "Pneumonia não complicada: Pneumonia adquirida na comunidade (PAC)",
-      videoUrl: "https://www.youtube.com/embed/vAc6NKMxGR8?si=HSe1jlqEsXpr-U0Z",
-      available: true
+      title: "Pneumonia adquirida na comunidade (PAC)",
+      videoUrl: "https://player-vz-76b2ce95-aef.tv.pandavideo.com.br/embed/?v=d989c91e-e8be-4c4d-9270-53789a4c786f",
+      releaseDate: "2026-07-21T00:00:00-03:00", // Fuso de Brasília
+      displayDate: "21 de Julho"
     },
-    2: {
+    {
+      id: 2,
       number: "Aula 02",
-      date: "22 de Dezembro às 21:12",
-      title: "Pneumonia Complicada (PACC)",
-      available: false
-    },
-    3: {
-      number: "Aula 03",
-      date: "23 de Dezembro às 21:12",
       title: "Pneumonia Atípica",
-      available: false
+      videoUrl: "https://player-vz-76b2ce95-aef.tv.pandavideo.com.br/embed/?v=36f601c0-6f44-4765-81f7-cc048a995365",
+      releaseDate: "2026-07-23T00:00:00-03:00",
+      displayDate: "23 de Julho"
+    },
+    {
+      id: 3,
+      number: "Aula 03",
+      title: "Pneumonia Atípica",
+      videoUrl: "https://player-vz-76b2ce95-aef.tv.pandavideo.com.br/embed/?v=577f9c84-d4ee-4b04-8666-dcd0282c758d",
+      releaseDate: "2026-07-28T00:00:00-03:00",
+      displayDate: "28 de Julho"
     }
-  };
+  ];
+
+  const now = new Date();
+
+  // Função para verificar se a aula está liberada
+  function isClassAvailable(classItem) {
+    const releaseTime = new Date(classItem.releaseDate);
+    return now >= releaseTime;
+  }
 
   // --- ANIMAÇÃO DE ENTRADA DO HERO (Foco e Blur robusto) ---
   const titleElement = document.querySelector(".aurum-hero-h1");
@@ -76,27 +89,56 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-  // --- LÓGICA DE LAZY LOAD DE VÍDEO DO YOUTUBE ---
-  function loadVideo(videoId) {
+  // --- LÓGICA DE LAZY LOAD DE VÍDEO DO PANDA VIDEO ---
+  function loadVideo(videoUrl) {
     const playerSection = document.getElementById("player-section");
     if (!playerSection) return;
     
     playerSection.innerHTML = `
       <iframe id="main-classroom-video" width="100%" height="100%" 
-        src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" 
-        title="YouTube video player" frameborder="0" 
+        src="${videoUrl}&autoplay=true" 
+        title="Panda Video player" frameborder="0" 
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen 
+        allowfullscreen 
         style="border: none; display: block; aspect-ratio: 16/9; border-radius: 12px; box-shadow: 0 20px 40px rgba(10, 25, 33, 0.25);">
       </iframe>
     `;
   }
 
+  // Atualização dinâmica inicial das classes de bloqueio (locked/active) nos cards
+  const classroomCards = document.querySelectorAll(".classroom-card");
+  classroomCards.forEach(card => {
+    const classNum = parseInt(card.dataset.class);
+    const item = classData.find(c => c.id === classNum);
+    
+    if (item) {
+      const isAvailable = isClassAvailable(item);
+      const thumbOverlay = card.querySelector(".classroom-thumb-overlay");
+      
+      if (isAvailable) {
+        card.classList.remove("locked");
+        if (thumbOverlay) {
+          thumbOverlay.innerHTML = `<span class="material-symbols-outlined">play_circle</span>`;
+        }
+      } else {
+        card.classList.add("locked");
+        card.classList.remove("active");
+        if (thumbOverlay) {
+          thumbOverlay.innerHTML = `<span class="material-symbols-outlined">lock</span>`;
+        }
+      }
+    }
+  });
+
   const lazyTrigger = document.getElementById("video-lazy-trigger");
   if (lazyTrigger) {
     lazyTrigger.addEventListener("click", function () {
-      const videoId = this.dataset.videoId;
-      loadVideo(videoId);
+      const firstClass = classData[0];
+      if (isClassAvailable(firstClass)) {
+        loadVideo(firstClass.videoUrl);
+      } else {
+        alert(`A ${firstClass.number} estará disponível no dia ${firstClass.displayDate}. Prepare-se!`);
+      }
     });
   }
 
@@ -105,45 +147,37 @@ document.addEventListener("DOMContentLoaded", function () {
   const activeDate = document.getElementById("active-date");
   const activeTitle = document.getElementById("active-title");
   
-  const classroomCards = document.querySelectorAll(".classroom-card");
   classroomCards.forEach(card => {
     card.addEventListener("click", function () {
       const classNum = parseInt(this.dataset.class);
+      const item = classData.find(c => c.id === classNum);
       
-      // Caso 1: Aula 1 (Liberada)
-      if (classNum === 1) {
+      if (!item) return;
+      
+      // Checa a liberação
+      if (isClassAvailable(item)) {
         classroomCards.forEach(c => c.classList.remove("active"));
         this.classList.add("active");
         
-        const videoId = this.dataset.videoId || "vAc6NKMxGR8";
         const iframe = document.getElementById("main-classroom-video");
-        
         if (iframe) {
-          iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+          iframe.src = `${item.videoUrl}&autoplay=true`;
         } else {
-          loadVideo(videoId);
+          loadVideo(item.videoUrl);
         }
         
-        if (activeBadge) activeBadge.textContent = classData[1].number;
-        if (activeDate) activeDate.textContent = classData[1].date;
-        if (activeTitle) activeTitle.textContent = classData[1].title;
+        if (activeBadge) activeBadge.textContent = item.number;
+        if (activeDate) activeDate.textContent = item.displayDate;
+        if (activeTitle) activeTitle.textContent = item.title;
         
         // Rola de volta para o player para focar no vídeo
         const playerSection = document.getElementById("player-section");
         if (playerSection) {
           playerSection.scrollIntoView({ behavior: "smooth", block: "center" });
         }
-        return;
+      } else {
+        alert(`A ${item.number} estará disponível no dia ${item.displayDate}. Fique atento ao grupo de WhatsApp!`);
       }
-      
-      // Caso 2: Aulas Bloqueadas (2 e 3)
-      if (classNum === 2 || classNum === 3) {
-        const info = classData[classNum];
-        alert(`A ${info.number} estará disponível no dia ${info.date}. Fique atento ao grupo de WhatsApp!`);
-        return;
-      }
-      
-
     });
   });
 
