@@ -1,7 +1,7 @@
 /* JS interativo para a Landing Page editorial da Aurum com Classroom Grid */
 
 document.addEventListener("DOMContentLoaded", function () {
-  
+
   // --- DADOS DAS AULAS (PLAYLIST / JSON COMPILADO) ---
   const classData = [
     {
@@ -44,13 +44,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const text = titleElement.textContent.trim();
     titleElement.innerHTML = "";
     const words = text.split(" ");
-    
+
     words.forEach((word, index) => {
       const span = document.createElement("span");
       span.className = "word-reveal";
       span.textContent = word + (index < words.length - 1 ? " " : "");
       titleElement.appendChild(span);
-      
+
       setTimeout(() => {
         span.classList.add("active");
       }, 50 + index * 100);
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
   setTimeout(() => {
     const heroP = document.querySelector(".aurum-hero-p");
     if (heroP) heroP.classList.add("active");
-    
+
     const classroom = document.querySelector(".aurum-classroom-container");
     if (classroom) classroom.classList.add("active");
   }, 400);
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function loadVideo(videoUrl) {
     const playerSection = document.getElementById("player-section");
     if (!playerSection) return;
-    
+
     playerSection.innerHTML = `
       <iframe id="main-classroom-video" 
         src="${videoUrl}&autoplay=true" 
@@ -110,11 +110,11 @@ document.addEventListener("DOMContentLoaded", function () {
   classroomCards.forEach(card => {
     const classNum = parseInt(card.dataset.class);
     const item = classData.find(c => c.id === classNum);
-    
+
     if (item) {
       const isAvailable = isClassAvailable(item);
       const thumbOverlay = card.querySelector(".classroom-thumb-overlay");
-      
+
       if (isAvailable) {
         card.classList.remove("locked");
         if (thumbOverlay) {
@@ -146,30 +146,30 @@ document.addEventListener("DOMContentLoaded", function () {
   const activeBadge = document.getElementById("active-badge");
   const activeDate = document.getElementById("active-date");
   const activeTitle = document.getElementById("active-title");
-  
+
   classroomCards.forEach(card => {
     card.addEventListener("click", function () {
       const classNum = parseInt(this.dataset.class);
       const item = classData.find(c => c.id === classNum);
-      
+
       if (!item) return;
-      
+
       // Checa a liberação
       if (isClassAvailable(item)) {
         classroomCards.forEach(c => c.classList.remove("active"));
         this.classList.add("active");
-        
+
         const iframe = document.getElementById("main-classroom-video");
         if (iframe) {
           iframe.src = `${item.videoUrl}&autoplay=true`;
         } else {
           loadVideo(item.videoUrl);
         }
-        
+
         if (activeBadge) activeBadge.textContent = item.number;
         if (activeDate) activeDate.textContent = item.displayDate;
         if (activeTitle) activeTitle.textContent = item.title;
-        
+
         // Rola de volta para o player para focar no vídeo
         const playerSection = document.getElementById("player-section");
         if (playerSection) {
@@ -195,7 +195,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (questionBox && answerGrid && icon) {
       questionBox.addEventListener("click", function () {
         const isOpen = answerGrid.classList.contains("is-open");
-        
+
         if (isOpen) {
           answerGrid.classList.remove("is-open");
           icon.textContent = "add";
@@ -215,12 +215,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // URL do Web App do seu Google Apps Script para a Planilha do Google
   // Cole a URL obtida após implantar o script conforme o passo a passo enviado.
-  const GOOGLE_SHEETS_URL = "URL_DO_SEU_WEB_APP_DO_GOOGLE_SHEETS";
+  const GOOGLE_SHEETS_URL = "https://docs.google.com/spreadsheets/d/1zm-H5OqiHHW7mmYg7zqk2OsWGVnd11iUudvHXgHZ7m0/edit?usp=sharing";
 
   if (commentForm) {
     commentForm.addEventListener("submit", function (e) {
       e.preventDefault();
-      
+
       const authorInput = document.getElementById("comment-name");
       const emailInput = document.getElementById("comment-email");
       const contentInput = document.getElementById("comment-text");
@@ -274,7 +274,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(currentComments => {
           const updatedComments = Array.isArray(currentComments) ? currentComments : [];
           updatedComments.unshift(newComment);
-          
+
           return fetch(BUCKET_URL, {
             method: "POST",
             headers: {
