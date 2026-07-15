@@ -213,19 +213,25 @@ document.addEventListener("DOMContentLoaded", function () {
   const commentForm = document.getElementById("comment-form");
   const BUCKET_URL = "https://kvdb.io/T8b7KqL31sW92xzD48nM5z/aurum_pneumonia_comments_v2";
 
+  // URL do Web App do seu Google Apps Script para a Planilha do Google
+  // Cole a URL obtida após implantar o script conforme o passo a passo enviado.
+  const GOOGLE_SHEETS_URL = "URL_DO_SEU_WEB_APP_DO_GOOGLE_SHEETS";
+
   if (commentForm) {
     commentForm.addEventListener("submit", function (e) {
       e.preventDefault();
       
       const authorInput = document.getElementById("comment-name");
+      const emailInput = document.getElementById("comment-email");
       const contentInput = document.getElementById("comment-text");
 
-      if (!authorInput || !contentInput) return;
+      if (!authorInput || !emailInput || !contentInput) return;
 
       const authorName = authorInput.value.trim();
+      const authorEmail = emailInput.value.trim();
       const commentContent = contentInput.value.trim();
 
-      if (!authorName || !commentContent) return;
+      if (!authorName || !authorEmail || !commentContent) return;
 
       const today = new Date();
       const formattedDate = today.toLocaleDateString("pt-BR", {
@@ -236,11 +242,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const newComment = {
         author: authorName.includes("Dra.") || authorName.includes("Dr.") || authorName.includes("Dra") || authorName.includes("Dr") ? authorName : `Dr(a). ${authorName}`,
+        email: authorEmail,
         date: formattedDate,
         content: commentContent
       };
 
-      // Carrega os posts atuais do servidor remoto, adiciona o novo post e salva de volta
+      // 1. Envio em paralelo para o Google Sheets (se configurado)
+      if (GOOGLE_SHEETS_URL && GOOGLE_SHEETS_URL !== "URL_DO_SEU_WEB_APP_DO_GOOGLE_SHEETS") {
+        fetch(GOOGLE_SHEETS_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            name: newComment.author,
+            email: newComment.email,
+            comment: newComment.content
+          })
+        }).catch(err => console.error("Erro ao enviar para o Google Sheets:", err));
+      }
+
+      // 2. Envio para o banco de dados KV de backup
       fetch(BUCKET_URL)
         .then(res => {
           if (res.status === 404) {
@@ -263,6 +286,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(() => {
           alert("Seu comentário foi enviado com sucesso! O Dr. Caíque e a equipe lerão tudo.");
           authorInput.value = "";
+          emailInput.value = "";
           contentInput.value = "";
         })
         .catch(err => {
@@ -270,6 +294,7 @@ document.addEventListener("DOMContentLoaded", function () {
           // Em caso de erro na rede, confirma o registro para o usuário de forma amigável
           alert("Seu comentário foi registrado com sucesso! Obrigado pelo feedback.");
           authorInput.value = "";
+          emailInput.value = "";
           contentInput.value = "";
         });
     });
