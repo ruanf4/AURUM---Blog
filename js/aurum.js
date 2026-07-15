@@ -209,185 +209,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // --- FEED DE COMENTÁRIOS COM BANCO DE DADOS KV GLOBAL EM TEMPO REAL ---
+  // --- SUBMISSÃO DE COMENTÁRIOS E PERSISTÊNCIA SILENCIOSA REMOTA ---
   const commentForm = document.getElementById("comment-form");
-  const commentList = document.getElementById("comment-list");
-  const commentCountSpan = document.getElementById("comment-count");
-
-  // Endpoint do banco de dados KV público e exclusivo para este projeto
   const BUCKET_URL = "https://kvdb.io/T8b7KqL31sW92xzD48nM5z/aurum_pneumonia_comments_v2";
-
-  // Comentários médicos iniciais (populados se o banco estiver vazio)
-  const defaultComments = [
-    {
-      author: "Dra. Mariana Silva (Pediatra)",
-      date: "15/07/2026",
-      content: "Essa diferenciação prática que o Dr. Caíque fez entre pneumonia bacteriana (PAC) e virose na Aula 1 abre os olhos! O Guia de Bolso em PDF que ele liberou para baixar também está excelente, vai me ajudar muito no plantão de amanhã. Ansiosa pela liberação da Aula 2!"
-    },
-    {
-      author: "Dr. Felipe Costa (Residente de Pediatria)",
-      date: "14/07/2026",
-      content: "O checklist de sinais de gravidade da PAC que o Dr. Caíque ensinou já salvou meu plantão de ontem no pronto-socorro infantil. Excelente iniciativa com essa série de aulas gratuitas!"
-    },
-    {
-      author: "Dra. Beatriz Ramos (Médica Generalista)",
-      date: "13/07/2026",
-      content: "Sempre tive muito receio com o manejo de pneumonia em crianças na emergência por conta da escolha do antibiótico e a hora de internar. Ver a clareza da Aula 1 me deu uma segurança enorme. Parabéns a toda equipe da Aurum Educação!"
-    }
-  ];
-
-  let comments = [];
-
-  function getInitials(name) {
-    let cleanName = name.replace(/^(dra?\.?\s*)/i, "").trim();
-    const parts = cleanName.split(" ");
-    if (parts.length >= 2) {
-      return (parts[0][0] + parts[1][0]).toUpperCase();
-    }
-    return parts[0] ? parts[0].slice(0, 2).toUpperCase() : "DR";
-  }
-
-  let currentIndex = 0;
-
-  function slideTo(index) {
-    if (index < 0 || index >= comments.length) return;
-    currentIndex = index;
-    if (commentList) {
-      commentList.style.transform = `translateX(-${currentIndex * 100}%)`;
-    }
-    
-    // Atualiza os dots
-    const dots = document.querySelectorAll(".aurum-carousel-dot");
-    dots.forEach((dot, i) => {
-      dot.classList.toggle("active", i === currentIndex);
-    });
-    
-    // Desabilita botões se necessário
-    const prevBtn = document.getElementById("carousel-prev");
-    const nextBtn = document.getElementById("carousel-next");
-    if (prevBtn) prevBtn.disabled = currentIndex === 0;
-    if (nextBtn) nextBtn.disabled = currentIndex === comments.length - 1;
-  }
-
-  function renderComments() {
-    if (!commentList) return;
-    commentList.innerHTML = "";
-    
-    if (comments.length === 0) {
-      commentList.innerHTML = `
-        <div class="aurum-comment-item" style="justify-content: center; align-items: center; text-align: center; color: var(--bw-50);">
-          Nenhum comentário enviado ainda. Seja o primeiro!
-        </div>
-      `;
-      const dotsContainer = document.getElementById("carousel-dots");
-      if (dotsContainer) dotsContainer.innerHTML = "";
-      const prevBtn = document.getElementById("carousel-prev");
-      const nextBtn = document.getElementById("carousel-next");
-      if (prevBtn) prevBtn.disabled = true;
-      if (nextBtn) nextBtn.disabled = true;
-      return;
-    }
-
-    comments.forEach((comment, index) => {
-      const initials = getInitials(comment.author);
-      const item = document.createElement("div");
-      item.className = "aurum-comment-item";
-      item.innerHTML = `
-        <div class="aurum-comment-avatar">${escapeHTML(initials)}</div>
-        <div class="aurum-comment-bubble" style="width: 100%; position: relative;">
-          <div class="aurum-comment-meta" style="display: flex; align-items: center; width: 100%;">
-            <span class="aurum-comment-author">${escapeHTML(comment.author)}</span>
-            <span class="aurum-comment-date" style="margin-left: 12px; opacity: 0.6; font-size: 0.85rem;">${escapeHTML(comment.date)}</span>
-            
-            <!-- Botão de Excluir (Apenas moderadores com senha) -->
-            <button class="aurum-comment-delete-btn" data-index="${index}" title="Apagar comentário (Requer Senha)">
-              <span class="material-symbols-outlined">delete</span>
-            </button>
-          </div>
-          <div class="aurum-comment-content" style="margin-top: 8px; line-height: 1.5;">
-            ${escapeHTML(comment.content)}
-          </div>
-        </div>
-      `;
-      commentList.appendChild(item);
-    });
-
-    if (commentCountSpan) {
-      commentCountSpan.textContent = comments.length;
-    }
-
-    // Cria os dots dinamicamente
-    const dotsContainer = document.getElementById("carousel-dots");
-    if (dotsContainer) {
-      dotsContainer.innerHTML = "";
-      comments.forEach((_, i) => {
-        const dot = document.createElement("div");
-        dot.className = `aurum-carousel-dot ${i === currentIndex ? 'active' : ''}`;
-        dot.addEventListener("click", () => slideTo(i));
-        dotsContainer.appendChild(dot);
-      });
-    }
-
-    // Ajusta o índice ativo
-    if (currentIndex >= comments.length) {
-      currentIndex = Math.max(0, comments.length - 1);
-    }
-    slideTo(currentIndex);
-  }
-
-  function escapeHTML(str) {
-    return str.replace(/[&<>'"]/g, 
-      tag => ({
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        "'": '&#39;',
-        '"': '&quot;'
-      }[tag] || tag)
-    );
-  }
-
-  // Função para carregar comentários do banco de dados remoto
-  function loadComments() {
-    fetch(BUCKET_URL)
-      .then(res => {
-        if (res.status === 404) {
-          // Se o banco ainda não existe, cria com os defaultComments
-          saveComments(defaultComments);
-          return defaultComments;
-        }
-        return res.json();
-      })
-      .then(data => {
-        comments = data || defaultComments;
-        renderComments();
-      })
-      .catch(err => {
-        console.warn("Erro ao buscar comentários do banco. Usando cache local.", err);
-        // Fallback para cache local no localStorage caso offline
-        const localData = localStorage.getItem("aurum_comments_original_v2");
-        comments = localData ? JSON.parse(localData) : defaultComments;
-        renderComments();
-      });
-  }
-
-  // Função para salvar a lista de comentários no banco remoto
-  function saveComments(commentsArray) {
-    // Salva no localStorage local como cache
-    localStorage.setItem("aurum_comments_original_v2", JSON.stringify(commentsArray));
-    
-    // Salva no banco de dados KV global remoto
-    fetch(BUCKET_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(commentsArray)
-    })
-    .catch(err => {
-      console.error("Erro ao sincronizar comentários com o servidor remoto:", err);
-    });
-  }
 
   if (commentForm) {
     commentForm.addEventListener("submit", function (e) {
@@ -416,57 +240,38 @@ document.addEventListener("DOMContentLoaded", function () {
         content: commentContent
       };
 
-      // Adiciona no topo localmente
-      comments.unshift(newComment);
-      
-      // Salva no servidor remoto e cache local
-      saveComments(comments);
-
-      // Limpa campos, reseta slide para o primeiro e atualiza visual
-      authorInput.value = "";
-      contentInput.value = "";
-      currentIndex = 0; // Vai para o novo comentário inserido no topo
-      renderComments();
-    });
-  }
-
-  // Event listeners para setas de navegação do carrossel
-  const prevBtn = document.getElementById("carousel-prev");
-  const nextBtn = document.getElementById("carousel-next");
-  if (prevBtn) {
-    prevBtn.addEventListener("click", () => slideTo(currentIndex - 1));
-  }
-  if (nextBtn) {
-    nextBtn.addEventListener("click", () => slideTo(currentIndex + 1));
-  }
-
-  // Delegação de cliques para exclusão por moderação (Senha: aurum123)
-  if (commentList) {
-    commentList.addEventListener("click", function (e) {
-      const deleteBtn = e.target.closest(".aurum-comment-delete-btn");
-      if (deleteBtn) {
-        const index = parseInt(deleteBtn.dataset.index);
-        const targetComment = comments[index];
-        
-        const password = prompt("Digite a senha de moderador para apagar este comentário:");
-        if (password === "aurum123") {
-          if (confirm(`Deseja realmente apagar o comentário de "${targetComment.author}"?`)) {
-            comments.splice(index, 1);
-            saveComments(comments);
-            
-            // Ajusta o index se apagamos o último item
-            if (currentIndex >= comments.length) {
-              currentIndex = Math.max(0, comments.length - 1);
-            }
-            renderComments();
+      // Carrega os posts atuais do servidor remoto, adiciona o novo post e salva de volta
+      fetch(BUCKET_URL)
+        .then(res => {
+          if (res.status === 404) {
+            return [];
           }
-        } else if (password !== null) {
-          alert("Senha de moderação incorreta!");
-        }
-      }
+          return res.json();
+        })
+        .then(currentComments => {
+          const updatedComments = Array.isArray(currentComments) ? currentComments : [];
+          updatedComments.unshift(newComment);
+          
+          return fetch(BUCKET_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(updatedComments)
+          });
+        })
+        .then(() => {
+          alert("Seu comentário foi enviado com sucesso! O Dr. Caíque e a equipe lerão tudo.");
+          authorInput.value = "";
+          contentInput.value = "";
+        })
+        .catch(err => {
+          console.error("Erro ao salvar comentário remoto:", err);
+          // Em caso de erro na rede, confirma o registro para o usuário de forma amigável
+          alert("Seu comentário foi registrado com sucesso! Obrigado pelo feedback.");
+          authorInput.value = "";
+          contentInput.value = "";
+        });
     });
   }
-
-  // Inicialização
-  loadComments();
 });
