@@ -95,12 +95,12 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!playerSection) return;
     
     playerSection.innerHTML = `
-      <iframe id="main-classroom-video" width="100%" height="100%" 
+      <iframe id="main-classroom-video" 
         src="${videoUrl}&autoplay=true" 
         title="Panda Video player" frameborder="0" 
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
         allowfullscreen 
-        style="border: none; display: block; aspect-ratio: 16/9; border-radius: 12px; box-shadow: 0 20px 40px rgba(10, 25, 33, 0.25);">
+        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;">
       </iframe>
     `;
   }
