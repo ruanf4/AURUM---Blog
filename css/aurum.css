@@ -1253,3 +1253,49 @@ a.aurum-btn-accent:hover {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Placeholder de Iframe Lazy Load */
+.aurum-video-lazy-placeholder {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  cursor: pointer;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.aurum-video-lazy-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 25, 33, 0.2);
+  transition: background 0.3s ease;
+  z-index: 2;
+}
+
+.aurum-video-lazy-placeholder:hover .aurum-video-lazy-overlay {
+  background: rgba(10, 25, 33, 0.1);
+}
+
+.aurum-video-lazy-placeholder .aurum-play-btn-wrap {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.aurum-video-lazy-placeholder .aurum-play-btn {
+  width: 72px;
+  height: 72px;
+  background: var(--accent-color);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 10px 25px rgba(227, 82, 53, 0.4);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.aurum-video-lazy-placeholder:hover .aurum-play-btn {
+  transform: scale(1.1);
+}

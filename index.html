@@ -12,9 +12,14 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="images/logo-aurum.png">
   
+  <!-- Preconnect e Preload para otimização de performance (PageSpeed) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="fonts/material-symbols-200.woff2" as="font" type="font/woff2" crossorigin>
+  
   <!-- Estilos -->
   <link rel="stylesheet" href="css/root.css">
-  <link rel="stylesheet" href="css/aurum.css?v=1.1.9">
+  <link rel="stylesheet" href="css/aurum.css?v=1.2.0">
 </head>
 <body class="page-home">
 
@@ -33,7 +38,7 @@
   <!-- HEADER CÁPSULA (Pill-bar flutuante escuro) -->
   <div class="aurum-header-container">
     <header class="aurum-header-pill">
-      <img src="images/logo-aurum.png" alt="Aurum Educação" class="aurum-logo">
+      <img src="images/logo-aurum.png" alt="Aurum Educação" class="aurum-logo" width="118" height="32">
       <a href="#" class="aurum-btn aurum-btn-accent" style="padding: 6px 18px; font-size: 0.8rem;">
         Inscrever-se
       </a>
@@ -55,7 +60,18 @@
       <!-- Coluna da Esquerda (Player & Metadados da Aula Selecionada) -->
       <div class="aurum-classroom-main">
         <div class="aurum-classroom-player" id="player-section">
-          <iframe id="main-classroom-video" width="100%" height="100%" src="https://www.youtube.com/embed/vAc6NKMxGR8?si=HSe1jlqEsXpr-U0Z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border: none; display: block; aspect-ratio: 16/9;"></iframe>
+          <!-- Placeholder Lazy Load para Vídeo do YouTube (Evita atraso de CPU e melhora pontuação de performance celular no PageSpeed) -->
+          <div class="aurum-video-lazy-placeholder" id="video-lazy-trigger" data-video-id="vAc6NKMxGR8" style="aspect-ratio: 16/9; width: 100%; border-radius: 12px; overflow: hidden;">
+            <div class="aurum-video-lazy-overlay"></div>
+            <div class="aurum-play-btn-wrap">
+              <div class="aurum-play-btn">
+                <svg viewBox="0 0 24 24" style="width: 28px; height: 28px; fill: #ffffff; margin-left: 4px;">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+            </div>
+            <img src="images/pneumonia_pediatrica_aula.webp" alt="Miniatura da Aula" width="640" height="640" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          </div>
         </div>
         <div class="aurum-classroom-meta">
           <div class="classroom-meta-top">
@@ -71,9 +87,9 @@
         <!-- Lista de Reprodução -->
         <div class="aurum-classroom-playlist">
           <!-- Card Aula 1 (Ativa) -->
-          <div class="classroom-card active" data-class="1" data-video="https://www.youtube.com/embed/vAc6NKMxGR8?si=HSe1jlqEsXpr-U0Z">
+          <div class="classroom-card active" data-class="1" data-video-id="vAc6NKMxGR8">
             <div class="classroom-thumb-wrap">
-              <img src="images/pneumonia_pediatrica_aula.png" alt="Miniatura Aula 1">
+              <img src="images/pneumonia_pediatrica_aula.webp" alt="Miniatura Aula 1" width="90" height="90" style="object-fit: cover; display: block;">
               <div class="classroom-thumb-overlay">
                 <span class="material-symbols-outlined">play_circle</span>
               </div>
@@ -260,7 +276,7 @@
       <div class="aurum-pos-closing-grid">
         <!-- Foto real do Dr. Caíque Acácio fornecida pelo usuário -->
         <div class="aurum-doctor-card-dark reveal-on-scroll">
-          <img src="images/dr_caique.jpg" alt="Dr. Caíque Acácio">
+          <img src="images/dr_caique.webp" alt="Dr. Caíque Acácio" width="400" height="531" loading="lazy">
           <div class="aurum-doctor-card-dark-overlay">
             <h3 class="aurum-doctor-card-dark-name">Dr. Caíque Acácio</h3>
             <span class="aurum-doctor-card-dark-title">Pediatra Especialista & Coordenador</span>
@@ -438,7 +454,7 @@
                 </svg>
               </div>
             </div>
-            <img id="player-thumb" src="images/pneumonia_pediatrica_aula.png" alt="Aula de Pneumonia Pediátrica">
+            <img id="player-thumb" src="images/pneumonia_pediatrica_aula.webp" alt="Aula de Pneumonia Pediátrica" width="600" height="600" loading="lazy">
             <span class="aurum-video-label" id="active-video-label">Assistindo: Aula 01: Pneumonia não complicada: Pneumonia adquirida na comunidade (PAC)</span>
           </div>
         </div>
@@ -458,6 +474,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/aurum.js?v=1.1.9"></script>
+  <script src="js/aurum.js?v=1.2.0"></script>
 </body>
 </html>

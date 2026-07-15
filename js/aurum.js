@@ -90,8 +90,31 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 
+  // --- LÓGICA DE LAZY LOAD DE VÍDEO DO YOUTUBE ---
+  function loadVideo(videoId) {
+    const playerSection = document.getElementById("player-section");
+    if (!playerSection) return;
+    
+    playerSection.innerHTML = `
+      <iframe id="main-classroom-video" width="100%" height="100%" 
+        src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" 
+        title="YouTube video player" frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen 
+        style="border: none; display: block; aspect-ratio: 16/9; border-radius: 12px; box-shadow: 0 20px 40px rgba(10, 25, 33, 0.25);">
+      </iframe>
+    `;
+  }
+
+  const lazyTrigger = document.getElementById("video-lazy-trigger");
+  if (lazyTrigger) {
+    lazyTrigger.addEventListener("click", function () {
+      const videoId = this.dataset.videoId;
+      loadVideo(videoId);
+    });
+  }
+
   // --- LÓGICA DE CLIQUE NA PLAYLIST VERTICAL (CLASSROOM GRID) ---
-  const mainVideo = document.getElementById("main-classroom-video");
   const activeBadge = document.getElementById("active-badge");
   const activeDate = document.getElementById("active-date");
   const activeTitle = document.getElementById("active-title");
@@ -106,7 +129,15 @@ document.addEventListener("DOMContentLoaded", function () {
         classroomCards.forEach(c => c.classList.remove("active"));
         this.classList.add("active");
         
-        if (mainVideo) mainVideo.src = classData[1].videoUrl;
+        const videoId = this.dataset.videoId || "vAc6NKMxGR8";
+        const iframe = document.getElementById("main-classroom-video");
+        
+        if (iframe) {
+          iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+        } else {
+          loadVideo(videoId);
+        }
+        
         if (activeBadge) activeBadge.textContent = classData[1].number;
         if (activeDate) activeDate.textContent = classData[1].date;
         if (activeTitle) activeTitle.textContent = classData[1].title;
