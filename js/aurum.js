@@ -205,40 +205,34 @@ document.addEventListener("DOMContentLoaded", function () {
           icon.textContent = "remove";
           row.classList.add("active");
         }
-      });
-    }
-  });
-
-
-  // --- FEED DE COMENTÁRIOS LOCAL ---
+     // --- FEED DE COMENTÁRIOS COM BANCO DE DADOS KV GLOBAL EM TEMPO REAL ---
   const commentForm = document.getElementById("comment-form");
   const commentList = document.getElementById("comment-list");
   const commentCountSpan = document.getElementById("comment-count");
 
-  // Comentários médicos iniciais
+  // Endpoint do banco de dados KV público e exclusivo para este projeto
+  const BUCKET_URL = "https://kvdb.io/T8b7KqL31sW92xzD48nM5z/aurum_pneumonia_comments_v2";
+
+  // Comentários médicos iniciais (populados se o banco estiver vazio)
   const defaultComments = [
     {
       author: "Dra. Mariana Silva (Pediatra)",
-      date: "Há 2 horas",
+      date: "15/07/2026",
       content: "Essa diferenciação prática que o Dr. Caíque fez entre pneumonia bacteriana (PAC) e virose na Aula 1 abre os olhos! O Guia de Bolso em PDF que ele liberou para baixar também está excelente, vai me ajudar muito no plantão de amanhã. Ansiosa pela liberação da Aula 2!"
     },
     {
       author: "Dr. Felipe Costa (Residente de Pediatria)",
-      date: "Há 4 horas",
+      date: "14/07/2026",
       content: "O checklist de sinais de gravidade da PAC que o Dr. Caíque ensinou já salvou meu plantão de ontem no pronto-socorro infantil. Excelente iniciativa com essa série de aulas gratuitas!"
     },
     {
       author: "Dra. Beatriz Ramos (Médica Generalista)",
-      date: "Há 6 horas",
+      date: "13/07/2026",
       content: "Sempre tive muito receio com o manejo de pneumonia em crianças na emergência por conta da escolha do antibiótico e a hora de internar. Ver a clareza da Aula 1 me deu uma segurança enorme. Parabéns a toda equipe da Aurum Educação!"
     }
   ];
 
-  let comments = JSON.parse(localStorage.getItem("aurum_comments_original_v2"));
-  if (!comments || comments.length === 0) {
-    comments = defaultComments;
-    localStorage.setItem("aurum_comments_original_v2", JSON.stringify(comments));
-  }
+  let comments = [];
 
   function getInitials(name) {
     let cleanName = name.replace(/^(dra?\.?\s*)/i, "").trim();
@@ -287,6 +281,48 @@ document.addEventListener("DOMContentLoaded", function () {
     );
   }
 
+  // Função para carregar comentários do banco de dados remoto
+  function loadComments() {
+    fetch(BUCKET_URL)
+      .then(res => {
+        if (res.status === 404) {
+          // Se o banco ainda não existe, cria com os defaultComments
+          saveComments(defaultComments);
+          return defaultComments;
+        }
+        return res.json();
+      })
+      .then(data => {
+        comments = data || defaultComments;
+        renderComments();
+      })
+      .catch(err => {
+        console.warn("Erro ao buscar comentários do banco. Usando cache local.", err);
+        // Fallback para cache local no localStorage caso offline
+        const localData = localStorage.getItem("aurum_comments_original_v2");
+        comments = localData ? JSON.parse(localData) : defaultComments;
+        renderComments();
+      });
+  }
+
+  // Função para salvar a lista de comentários no banco remoto
+  function saveComments(commentsArray) {
+    // Salva no localStorage local como cache
+    localStorage.setItem("aurum_comments_original_v2", JSON.stringify(commentsArray));
+    
+    // Salva no banco de dados KV global remoto
+    fetch(BUCKET_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(commentsArray)
+    })
+    .catch(err => {
+      console.error("Erro ao sincronizar comentários com o servidor remoto:", err);
+    });
+  }
+
   if (commentForm) {
     commentForm.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -301,21 +337,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (!authorName || !commentContent) return;
 
+      const today = new Date();
+      const formattedDate = today.toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+      });
+
       const newComment = {
         author: authorName.includes("Dra.") || authorName.includes("Dr.") || authorName.includes("Dra") || authorName.includes("Dr") ? authorName : `Dr(a). ${authorName}`,
-        date: "Agora mesmo",
+        date: formattedDate,
         content: commentContent
       };
 
+      // Adiciona no topo localmente
       comments.unshift(newComment);
-      localStorage.setItem("aurum_comments_original_v2", JSON.stringify(comments));
+      
+      // Salva no servidor remoto e cache local
+      saveComments(comments);
 
+      // Limpa campos e atualiza visual
       authorInput.value = "";
       contentInput.value = "";
-
       renderComments();
     });
   }
 
-  renderComments();
+  // Inicialização
+  loadComments();
 });
