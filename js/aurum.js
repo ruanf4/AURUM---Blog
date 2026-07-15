@@ -73,21 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
   revealElements.forEach(el => revealObserver.observe(el));
 
 
-  // --- ACCORDEON DE MÓDULOS (Pós-Graduação) ---
-  const moduleRows = document.querySelectorAll(".aurum-module-row-dark");
-  moduleRows.forEach(row => {
-    row.addEventListener("click", function () {
-      const isActive = this.classList.contains("active");
-      
-      // Fecha todos
-      moduleRows.forEach(r => r.classList.remove("active"));
-      
-      // Abre o clicado se não estava ativo
-      if (!isActive) {
-        this.classList.add("active");
-      }
-    });
-  });
+
 
 
   // --- LÓGICA DE LAZY LOAD DE VÍDEO DO YOUTUBE ---
@@ -157,13 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
       
-      // Caso 3: Pós-Graduação (Card 4)
-      if (classNum === 4) {
-        const posSection = document.getElementById("posgraduacao");
-        if (posSection) {
-          posSection.scrollIntoView({ behavior: "smooth", block: "center" });
-        }
-      }
+
     });
   });
 
