@@ -1326,3 +1326,134 @@ a.aurum-btn-accent:hover {
 .aurum-video-lazy-placeholder:hover .aurum-play-btn {
   transform: scale(1.1);
 }
+
+/* CARROSSEL DE COMENTÁRIOS COM PROFUNDIDADE */
+.aurum-comments-carousel-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.aurum-comments-carousel-viewport {
+  overflow: hidden;
+  width: 100%;
+  border-radius: 20px;
+  background: #ffffff;
+  border: 1.5px solid rgba(30, 37, 43, 0.08);
+  box-shadow: 0 15px 40px rgba(30, 37, 43, 0.03), 0 1px 3px rgba(30, 37, 43, 0.02);
+}
+
+.aurum-comments-carousel-track {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+.aurum-comment-item {
+  flex: 0 0 100%;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 32px 40px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  border-bottom: none !important;
+}
+
+@media (max-width: 576px) {
+  .aurum-comment-item {
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+  }
+  .aurum-comments-carousel-container {
+    gap: 8px;
+  }
+  .aurum-carousel-btn {
+    width: 40px !important;
+    height: 40px !important;
+  }
+}
+
+.aurum-carousel-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1.5px solid rgba(30, 37, 43, 0.08);
+  box-shadow: 0 4px 12px rgba(30, 37, 43, 0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: #1e252b;
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  z-index: 5;
+  flex-shrink: 0;
+}
+
+.aurum-carousel-btn:hover {
+  background: var(--accent-color);
+  color: #ffffff;
+  border-color: var(--accent-color);
+  transform: scale(1.05);
+}
+
+.aurum-carousel-btn:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+  transform: none !important;
+  background: #f1f5f9;
+  color: #94a3b8;
+  border-color: rgba(30, 37, 43, 0.05);
+}
+
+.aurum-carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.aurum-carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(30, 37, 43, 0.15);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.aurum-carousel-dot.active {
+  background: var(--accent-color);
+  width: 24px;
+  border-radius: 120px;
+}
+
+.aurum-comment-delete-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: rgba(30, 37, 43, 0.25);
+  padding: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  transition: all 0.2s ease;
+  border-radius: 6px;
+}
+
+.aurum-comment-delete-btn:hover {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.05);
+  transform: scale(1.08);
+}
+
+.aurum-comment-delete-btn span {
+  font-size: 20px;
+}

@@ -247,30 +247,92 @@ document.addEventListener("DOMContentLoaded", function () {
     return parts[0] ? parts[0].slice(0, 2).toUpperCase() : "DR";
   }
 
+  let currentIndex = 0;
+
+  function slideTo(index) {
+    if (index < 0 || index >= comments.length) return;
+    currentIndex = index;
+    if (commentList) {
+      commentList.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+    
+    // Atualiza os dots
+    const dots = document.querySelectorAll(".aurum-carousel-dot");
+    dots.forEach((dot, i) => {
+      dot.classList.toggle("active", i === currentIndex);
+    });
+    
+    // Desabilita botões se necessário
+    const prevBtn = document.getElementById("carousel-prev");
+    const nextBtn = document.getElementById("carousel-next");
+    if (prevBtn) prevBtn.disabled = currentIndex === 0;
+    if (nextBtn) nextBtn.disabled = currentIndex === comments.length - 1;
+  }
+
   function renderComments() {
     if (!commentList) return;
     commentList.innerHTML = "";
-    comments.forEach(comment => {
+    
+    if (comments.length === 0) {
+      commentList.innerHTML = `
+        <div class="aurum-comment-item" style="justify-content: center; align-items: center; text-align: center; color: var(--bw-50);">
+          Nenhum comentário enviado ainda. Seja o primeiro!
+        </div>
+      `;
+      const dotsContainer = document.getElementById("carousel-dots");
+      if (dotsContainer) dotsContainer.innerHTML = "";
+      const prevBtn = document.getElementById("carousel-prev");
+      const nextBtn = document.getElementById("carousel-next");
+      if (prevBtn) prevBtn.disabled = true;
+      if (nextBtn) nextBtn.disabled = true;
+      return;
+    }
+
+    comments.forEach((comment, index) => {
       const initials = getInitials(comment.author);
       const item = document.createElement("div");
       item.className = "aurum-comment-item";
       item.innerHTML = `
         <div class="aurum-comment-avatar">${escapeHTML(initials)}</div>
-        <div class="aurum-comment-bubble">
-          <div class="aurum-comment-meta">
+        <div class="aurum-comment-bubble" style="width: 100%; position: relative;">
+          <div class="aurum-comment-meta" style="display: flex; align-items: center; width: 100%;">
             <span class="aurum-comment-author">${escapeHTML(comment.author)}</span>
-            <span class="aurum-comment-date">${escapeHTML(comment.date)}</span>
+            <span class="aurum-comment-date" style="margin-left: 12px; opacity: 0.6; font-size: 0.85rem;">${escapeHTML(comment.date)}</span>
+            
+            <!-- Botão de Excluir (Apenas moderadores com senha) -->
+            <button class="aurum-comment-delete-btn" data-index="${index}" title="Apagar comentário (Requer Senha)">
+              <span class="material-symbols-outlined">delete</span>
+            </button>
           </div>
-          <div class="aurum-comment-content">
+          <div class="aurum-comment-content" style="margin-top: 8px; line-height: 1.5;">
             ${escapeHTML(comment.content)}
           </div>
         </div>
       `;
       commentList.appendChild(item);
     });
+
     if (commentCountSpan) {
       commentCountSpan.textContent = comments.length;
     }
+
+    // Cria os dots dinamicamente
+    const dotsContainer = document.getElementById("carousel-dots");
+    if (dotsContainer) {
+      dotsContainer.innerHTML = "";
+      comments.forEach((_, i) => {
+        const dot = document.createElement("div");
+        dot.className = `aurum-carousel-dot ${i === currentIndex ? 'active' : ''}`;
+        dot.addEventListener("click", () => slideTo(i));
+        dotsContainer.appendChild(dot);
+      });
+    }
+
+    // Ajusta o índice ativo
+    if (currentIndex >= comments.length) {
+      currentIndex = Math.max(0, comments.length - 1);
+    }
+    slideTo(currentIndex);
   }
 
   function escapeHTML(str) {
@@ -360,10 +422,48 @@ document.addEventListener("DOMContentLoaded", function () {
       // Salva no servidor remoto e cache local
       saveComments(comments);
 
-      // Limpa campos e atualiza visual
+      // Limpa campos, reseta slide para o primeiro e atualiza visual
       authorInput.value = "";
       contentInput.value = "";
+      currentIndex = 0; // Vai para o novo comentário inserido no topo
       renderComments();
+    });
+  }
+
+  // Event listeners para setas de navegação do carrossel
+  const prevBtn = document.getElementById("carousel-prev");
+  const nextBtn = document.getElementById("carousel-next");
+  if (prevBtn) {
+    prevBtn.addEventListener("click", () => slideTo(currentIndex - 1));
+  }
+  if (nextBtn) {
+    nextBtn.addEventListener("click", () => slideTo(currentIndex + 1));
+  }
+
+  // Delegação de cliques para exclusão por moderação (Senha: aurum123)
+  if (commentList) {
+    commentList.addEventListener("click", function (e) {
+      const deleteBtn = e.target.closest(".aurum-comment-delete-btn");
+      if (deleteBtn) {
+        const index = parseInt(deleteBtn.dataset.index);
+        const targetComment = comments[index];
+        
+        const password = prompt("Digite a senha de moderador para apagar este comentário:");
+        if (password === "aurum123") {
+          if (confirm(`Deseja realmente apagar o comentário de "${targetComment.author}"?`)) {
+            comments.splice(index, 1);
+            saveComments(comments);
+            
+            // Ajusta o index se apagamos o último item
+            if (currentIndex >= comments.length) {
+              currentIndex = Math.max(0, comments.length - 1);
+            }
+            renderComments();
+          }
+        } else if (password !== null) {
+          alert("Senha de moderação incorreta!");
+        }
+      }
     });
   }
 

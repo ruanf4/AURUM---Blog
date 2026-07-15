@@ -19,7 +19,7 @@
   
   <!-- Estilos -->
   <link rel="stylesheet" href="css/root.css">
-  <link rel="stylesheet" href="css/aurum.css?v=1.2.8">
+  <link rel="stylesheet" href="css/aurum.css?v=1.2.9">
 </head>
 <body class="page-home">
 
@@ -229,13 +229,13 @@
         <form id="comment-form" class="form">
           <div class="form-row">
             <div class="input-group">
-              <label class="input-label-s" for="author-name">Seu Nome completo</label>
-              <input class="input" type="text" id="author-name" placeholder="Ex: Dra. Mariana Vasconcelos" required>
+              <label class="input-label-s" for="comment-name">Seu Nome completo</label>
+              <input class="input" type="text" id="comment-name" placeholder="Ex: Dra. Mariana Vasconcelos" required>
             </div>
           </div>
           <div class="input-group" style="margin-top: 16px;">
-            <label class="input-label-s" for="comment-content">Seu Comentário ou Dúvida</label>
-            <textarea class="textarea" id="comment-content" style="min-height: 100px;" placeholder="Escreva aqui seu feedback da aula..." required></textarea>
+            <label class="input-label-s" for="comment-text">Seu Comentário ou Dúvida</label>
+            <textarea class="textarea" id="comment-text" style="min-height: 100px;" placeholder="Escreva aqui seu feedback da aula..." required></textarea>
           </div>
           <div class="form-actions" style="margin-top: 20px;">
             <button class="aurum-btn aurum-btn-primary" type="submit" style="padding: 10px 24px;">
@@ -245,11 +245,32 @@
         </form>
       </div>
 
-      <!-- Lista de Comentários -->
-      <div style="margin-bottom: 16px; font-weight: 600; font-size: 1.125rem; color: var(--bw);">
+      <!-- Lista de Comentários em Formato Carrossel com Profundidade -->
+      <div style="margin-bottom: 20px; font-weight: 600; font-size: 1.125rem; color: var(--bw); text-align: center;">
         Discussão (<span id="comment-count">0</span> comentários)
       </div>
-      <div class="aurum-comment-list" id="comment-list">
+      
+      <div class="aurum-comments-carousel-container">
+        <!-- Botão Anterior -->
+        <button class="aurum-carousel-btn prev" id="carousel-prev" title="Comentário Anterior">
+          <span class="material-symbols-outlined">chevron_left</span>
+        </button>
+        
+        <!-- Área de Exibição (Track) -->
+        <div class="aurum-comments-carousel-viewport">
+          <div class="aurum-comments-carousel-track" id="comment-list">
+            <!-- Inseridos dinamicamente por JS -->
+          </div>
+        </div>
+        
+        <!-- Botão Próximo -->
+        <button class="aurum-carousel-btn next" id="carousel-next" title="Próximo Comentário">
+          <span class="material-symbols-outlined">chevron_right</span>
+        </button>
+      </div>
+      
+      <!-- Indicadores de Bolinha (Dots) -->
+      <div class="aurum-carousel-dots" id="carousel-dots">
         <!-- Inseridos dinamicamente por JS -->
       </div>
     </div>
@@ -377,6 +398,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/aurum.js?v=1.2.8"></script>
+  <script src="js/aurum.js?v=1.2.9"></script>
 </body>
 </html>
