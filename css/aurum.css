@@ -440,20 +440,32 @@ body::before {
 .aurum-editorial-list {
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 20px; /* Espaçamento menor entre os blocos */
 }
 
 .aurum-editorial-item {
   display: grid;
-  grid-template-columns: 100px 1fr;
+  grid-template-columns: 80px 1fr;
   gap: 32px;
-  align-items: flex-start;
+  align-items: center;
+  background: #ffffff; /* Bloco com fundo branco */
+  border: 1.5px solid rgba(30, 37, 43, 0.08); /* Borda sutil */
+  border-radius: 20px; /* Cantos arredondados premium */
+  padding: 32px 40px; /* Espaçamento interno */
+  box-shadow: 0 8px 30px rgba(30, 37, 43, 0.02), 0 1px 3px rgba(30, 37, 43, 0.02); /* Profundidade tridimensional */
+  transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.aurum-editorial-item:hover {
+  transform: translateY(-3px); /* Elevação suave no hover */
+  box-shadow: 0 15px 35px rgba(30, 37, 43, 0.05), 0 1px 5px rgba(30, 37, 43, 0.03);
 }
 
 @media (max-width: 576px) {
   .aurum-editorial-item {
     grid-template-columns: 1fr;
     gap: 16px;
+    padding: 24px; /* Padding reduzido no mobile */
   }
 }
 
@@ -938,20 +950,33 @@ a.aurum-btn-whatsapp:hover {
   font-weight: 700;
 }
 
-/* FAQ E FOOTER TEMA CLARO */
+/* FAQ EM FUNDO AZUL MARINHO PROFUNDO COM TEXTURA # */
 .aurum-faq-section {
+  background-color: #0A1921;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(227, 82, 53, 0.06) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(13, 59, 159, 0.06) 0px, transparent 50%),
+    linear-gradient(rgba(255, 255, 255, 0.005) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.005) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 24px 24px, 24px 24px; /* Textura de linhas # */
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   padding: 100px 20px;
-  max-width: 800px;
-  margin: 0 auto;
   position: relative;
   z-index: 10;
+  width: 100%;
+}
+
+.aurum-faq-inner {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .aurum-faq-grid {
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 12px 35px rgba(30, 37, 43, 0.03);
-  border: 1.5px solid rgba(30, 37, 43, 0.15); /* Borda mais definida */
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25); /* Sombra acentuada no fundo escuro */
+  border: 1.5px solid rgba(255, 255, 255, 0.08); /* Borda clarinha sutil */
 }
 
 .aurum-faq-row {
