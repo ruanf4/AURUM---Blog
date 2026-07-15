@@ -205,7 +205,11 @@ document.addEventListener("DOMContentLoaded", function () {
           icon.textContent = "remove";
           row.classList.add("active");
         }
-     // --- FEED DE COMENTÁRIOS COM BANCO DE DADOS KV GLOBAL EM TEMPO REAL ---
+      });
+    }
+  });
+
+  // --- FEED DE COMENTÁRIOS COM BANCO DE DADOS KV GLOBAL EM TEMPO REAL ---
   const commentForm = document.getElementById("comment-form");
   const commentList = document.getElementById("comment-list");
   const commentCountSpan = document.getElementById("comment-count");
