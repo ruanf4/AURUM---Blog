@@ -220,17 +220,17 @@ document.addEventListener("DOMContentLoaded", function () {
     {
       author: "Dra. Mariana Silva (Pediatra)",
       date: "Há 2 horas",
-      content: "Essa diferenciação prática que o Dr. Caíque fez entre pneumonia bacteriana (PAC) e virose na Aula 1 abre os olhos! Já fiz a minha matrícula na Pós-Graduação em Emergência Pediátrica e Neonatal e estou ansiosa para a simulação prática presencial. O suporte deles para tirar dúvidas dos casos de plantão no grupo é exatamente o que um médico recém-formado precisa."
+      content: "Essa diferenciação prática que o Dr. Caíque fez entre pneumonia bacteriana (PAC) e virose na Aula 1 abre os olhos! O Guia de Bolso em PDF que ele liberou para baixar também está excelente, vai me ajudar muito no plantão de amanhã. Ansiosa pela liberação da Aula 2!"
     },
     {
       author: "Dr. Felipe Costa (Residente de Pediatria)",
       date: "Há 4 horas",
-      content: "O checklist de sinais de gravidade da PAC que o Dr. Caíque ensinou já salvou meu plantão de ontem. O módulo de pneumonia complicada com derrame pleural (PACC) também está impecável. Essa Pós com reconhecimento UNIFATEC/MEC vale cada centavo."
+      content: "O checklist de sinais de gravidade da PAC que o Dr. Caíque ensinou já salvou meu plantão de ontem no pronto-socorro infantil. Excelente iniciativa com essa série de aulas gratuitas!"
     },
     {
       author: "Dra. Beatriz Ramos (Médica Generalista)",
       date: "Há 6 horas",
-      content: "Sempre tive muito receio com intubação pediátrica e choque séptico. Ver a clareza da ementa e a simulação prática em manequins robóticos avançados de alta fidelidade me deu a segurança definitiva para entrar na Pós da Aurum. Dr. Caíque é sensacional!"
+      content: "Sempre tive muito receio com o manejo de pneumonia em crianças na emergência por conta da escolha do antibiótico e a hora de internar. Ver a clareza da Aula 1 me deu uma segurança enorme. Parabéns a toda equipe da Aurum Educação!"
     }
   ];
 
@@ -291,8 +291,10 @@ document.addEventListener("DOMContentLoaded", function () {
     commentForm.addEventListener("submit", function (e) {
       e.preventDefault();
       
-      const authorInput = document.getElementById("author-name");
-      const contentInput = document.getElementById("comment-content");
+      const authorInput = document.getElementById("comment-name");
+      const contentInput = document.getElementById("comment-text");
+
+      if (!authorInput || !contentInput) return;
 
       const authorName = authorInput.value.trim();
       const commentContent = contentInput.value.trim();
@@ -300,7 +302,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!authorName || !commentContent) return;
 
       const newComment = {
-        author: authorName.includes("Dra.") || authorName.includes("Dr.") ? authorName : `Dr(a). ${authorName}`,
+        author: authorName.includes("Dra.") || authorName.includes("Dr.") || authorName.includes("Dra") || authorName.includes("Dr") ? authorName : `Dr(a). ${authorName}`,
         date: "Agora mesmo",
         content: commentContent
       };
