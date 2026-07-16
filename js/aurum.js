@@ -249,17 +249,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // 1. Envio em paralelo para o Google Sheets (se configurado)
       if (GOOGLE_SHEETS_URL && GOOGLE_SHEETS_URL !== "URL_DO_SEU_WEB_APP_DO_GOOGLE_SHEETS") {
+        const formData = new URLSearchParams();
+        formData.append("name", newComment.author);
+        formData.append("phone", newComment.phone);
+        formData.append("comment", newComment.content);
+
         fetch(GOOGLE_SHEETS_URL, {
           method: "POST",
           mode: "no-cors",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/x-www-form-urlencoded"
           },
-          body: JSON.stringify({
-            name: newComment.author,
-            phone: newComment.phone,
-            comment: newComment.content
-          })
+          body: formData
         }).catch(err => console.error("Erro ao enviar para o Google Sheets:", err));
       }
 
