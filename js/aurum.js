@@ -222,16 +222,16 @@ document.addEventListener("DOMContentLoaded", function () {
       e.preventDefault();
 
       const authorInput = document.getElementById("comment-name");
-      const emailInput = document.getElementById("comment-email");
+      const phoneInput = document.getElementById("comment-phone");
       const contentInput = document.getElementById("comment-text");
 
-      if (!authorInput || !emailInput || !contentInput) return;
+      if (!authorInput || !phoneInput || !contentInput) return;
 
       const authorName = authorInput.value.trim();
-      const authorEmail = emailInput.value.trim();
+      const authorPhone = phoneInput.value.trim();
       const commentContent = contentInput.value.trim();
 
-      if (!authorName || !authorEmail || !commentContent) return;
+      if (!authorName || !authorPhone || !commentContent) return;
 
       const today = new Date();
       const formattedDate = today.toLocaleDateString("pt-BR", {
@@ -242,7 +242,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const newComment = {
         author: authorName.includes("Dra.") || authorName.includes("Dr.") || authorName.includes("Dra") || authorName.includes("Dr") ? authorName : `Dr(a). ${authorName}`,
-        email: authorEmail,
+        phone: authorPhone,
         date: formattedDate,
         content: commentContent
       };
@@ -257,7 +257,7 @@ document.addEventListener("DOMContentLoaded", function () {
           },
           body: JSON.stringify({
             name: newComment.author,
-            email: newComment.email,
+            phone: newComment.phone,
             comment: newComment.content
           })
         }).catch(err => console.error("Erro ao enviar para o Google Sheets:", err));
@@ -286,7 +286,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(() => {
           alert("Seu comentário foi enviado com sucesso! O Dr. Caíque e a equipe lerão tudo.");
           authorInput.value = "";
-          emailInput.value = "";
+          phoneInput.value = "";
           contentInput.value = "";
         })
         .catch(err => {
@@ -294,7 +294,7 @@ document.addEventListener("DOMContentLoaded", function () {
           // Em caso de erro na rede, confirma o registro para o usuário de forma amigável
           alert("Seu comentário foi registrado com sucesso! Obrigado pelo feedback.");
           authorInput.value = "";
-          emailInput.value = "";
+          phoneInput.value = "";
           contentInput.value = "";
         });
     });
