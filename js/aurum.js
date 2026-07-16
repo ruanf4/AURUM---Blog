@@ -215,7 +215,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // URL do Web App do seu Google Apps Script para a Planilha do Google
   // Cole a URL obtida após implantar o script conforme o passo a passo enviado.
-  const GOOGLE_SHEETS_URL = "https://docs.google.com/spreadsheets/d/1zm-H5OqiHHW7mmYg7zqk2OsWGVnd11iUudvHXgHZ7m0/edit?usp=sharing";
+  const GOOGLE_SHEETS_URL = "https://script.google.com/u/0/home/projects/1tMNcuhDIhrQKrJG5xhurLFYfKv3Db4kq2iG53ivqGqBfiI3u-9eYc5tK/edit";
 
   if (commentForm) {
     commentForm.addEventListener("submit", function (e) {
