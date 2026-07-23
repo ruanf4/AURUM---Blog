@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
       number: "Aula 01",
       title: "Pneumonia adquirida na comunidade (PAC)",
       videoUrl: "https://player-vz-76b2ce95-aef.tv.pandavideo.com.br/embed/?v=d989c91e-e8be-4c4d-9270-53789a4c786f",
+      thumbnail: "images/thumb_aula_1.png",
       releaseDate: "2026-07-28T00:00:00-03:00", // Fuso de Brasília
       displayDate: "28 de Julho"
     },
@@ -17,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
       number: "Aula 02",
       title: "Pneumonia Atípica",
       videoUrl: "https://player-vz-76b2ce95-aef.tv.pandavideo.com.br/embed/?v=36f601c0-6f44-4765-81f7-cc048a995365",
+      thumbnail: "images/thumb_aula_2.png",
       releaseDate: "2026-07-30T00:00:00-03:00",
       displayDate: "30 de Julho"
     },
@@ -25,6 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
       number: "Aula 03",
       title: "Pneumonia Atípica",
       videoUrl: "https://player-vz-76b2ce95-aef.tv.pandavideo.com.br/embed/?v=577f9c84-d4ee-4b04-8666-dcd0282c758d",
+      thumbnail: "images/thumb_aula_3.jpg",
       releaseDate: "2026-08-04T00:00:00-03:00",
       displayDate: "04 de Agosto"
     }

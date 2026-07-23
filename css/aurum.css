@@ -412,6 +412,11 @@ body::before {
   color: var(--bw-50);
 }
 
+.classroom-card.locked .classroom-thumb-wrap img {
+  opacity: 0.35;
+  filter: grayscale(60%);
+}
+
 /* --- EFEITO VERDE DE DESTAQUE PARA AULAS LIBERADAS --- */
 .pulse-green-dot {
   width: 7px;
