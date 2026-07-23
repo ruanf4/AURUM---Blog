@@ -105,30 +105,71 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
   }
 
-  // Atualização dinâmica inicial das classes de bloqueio (locked/active) nos cards
-  const classroomCards = document.querySelectorAll(".classroom-card");
-  classroomCards.forEach(card => {
-    const classNum = parseInt(card.dataset.class);
-    const item = classData.find(c => c.id === classNum);
+  // --- ATUALIZAÇÃO DINÂMICA DAS AULAS (DESTAQUE VERDE PARA LIBERADAS) ---
+  function updateClassroomStatus() {
+    // 1. Atualização dos cards na playlist lateral
+    const classroomCards = document.querySelectorAll(".classroom-card");
+    classroomCards.forEach(card => {
+      const classNum = parseInt(card.dataset.class);
+      const item = classData.find(c => c.id === classNum);
 
-    if (item) {
-      const isAvailable = isClassAvailable(item);
-      const thumbOverlay = card.querySelector(".classroom-thumb-overlay");
+      if (item) {
+        const isAvailable = isClassAvailable(item);
+        const thumbOverlay = card.querySelector(".classroom-thumb-overlay");
+        const infoMeta = card.querySelector(".classroom-info-meta");
 
-      if (isAvailable) {
-        card.classList.remove("locked");
-        if (thumbOverlay) {
-          thumbOverlay.innerHTML = `<span class="material-symbols-outlined">play_circle</span>`;
-        }
-      } else {
-        card.classList.add("locked");
-        card.classList.remove("active");
-        if (thumbOverlay) {
-          thumbOverlay.innerHTML = `<span class="material-symbols-outlined">lock</span>`;
+        if (isAvailable) {
+          card.classList.remove("locked");
+          card.classList.add("unlocked");
+          if (thumbOverlay) {
+            thumbOverlay.innerHTML = `<span class="material-symbols-outlined">play_circle</span>`;
+          }
+          if (infoMeta && !infoMeta.querySelector(".badge-released")) {
+            infoMeta.innerHTML = `${item.number} <span class="badge-released"><span class="pulse-green-dot"></span> LIBERADA</span>`;
+          }
+        } else {
+          card.classList.add("locked");
+          card.classList.remove("unlocked");
+          card.classList.remove("active");
+          if (thumbOverlay) {
+            thumbOverlay.innerHTML = `<span class="material-symbols-outlined">lock</span>`;
+          }
         }
       }
+    });
+
+    // 2. Atualização dos blocos editoriais da Seção 2 ("Três Aulas")
+    const editorialItems = document.querySelectorAll(".aurum-editorial-item");
+    editorialItems.forEach(itemEl => {
+      const classNum = parseInt(itemEl.dataset.class);
+      const item = classData.find(c => c.id === classNum);
+      if (item) {
+        const isAvailable = isClassAvailable(item);
+        const nameEl = itemEl.querySelector(".aurum-editorial-name");
+
+        if (isAvailable) {
+          itemEl.classList.remove("locked");
+          itemEl.classList.add("unlocked");
+          if (nameEl && !nameEl.querySelector(".badge-released")) {
+            nameEl.innerHTML += ` <span class="badge-released" style="margin-left: 8px;"><span class="pulse-green-dot"></span> AULA LIBERADA</span>`;
+          }
+        } else {
+          itemEl.classList.add("locked");
+          itemEl.classList.remove("unlocked");
+        }
+      }
+    });
+
+    // 3. Atualização do cabeçalho de metadados da aula 1 (ativa por padrão)
+    const activeClass = classData[0];
+    const activeDateEl = document.getElementById("active-date");
+    if (activeDateEl && isClassAvailable(activeClass)) {
+      activeDateEl.innerHTML = `${activeClass.displayDate} <span class="badge-released" style="margin-left: 6px;"><span class="pulse-green-dot"></span> LIBERADA</span>`;
     }
-  });
+  }
+
+  // Executa o status inicial
+  updateClassroomStatus();
 
   const lazyTrigger = document.getElementById("video-lazy-trigger");
   if (lazyTrigger) {
@@ -146,8 +187,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const activeBadge = document.getElementById("active-badge");
   const activeDate = document.getElementById("active-date");
   const activeTitle = document.getElementById("active-title");
+  const classroomCardsList = document.querySelectorAll(".classroom-card");
 
-  classroomCards.forEach(card => {
+  classroomCardsList.forEach(card => {
     card.addEventListener("click", function () {
       const classNum = parseInt(this.dataset.class);
       const item = classData.find(c => c.id === classNum);
@@ -156,7 +198,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Checa a liberação
       if (isClassAvailable(item)) {
-        classroomCards.forEach(c => c.classList.remove("active"));
+        classroomCardsList.forEach(c => c.classList.remove("active"));
         this.classList.add("active");
 
         const iframe = document.getElementById("main-classroom-video");
@@ -167,7 +209,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (activeBadge) activeBadge.textContent = item.number;
-        if (activeDate) activeDate.textContent = item.displayDate;
+        if (activeDate) {
+          activeDate.innerHTML = `${item.displayDate} <span class="badge-released" style="margin-left: 6px;"><span class="pulse-green-dot"></span> LIBERADA</span>`;
+        }
         if (activeTitle) activeTitle.textContent = item.title;
 
         // Rola de volta para o player para focar no vídeo
